@@ -1,3 +1,8 @@
+body {
+	background-color: rgb(255,253,84);
+    font-size: 62.5%;
+}
+
 .acceuil {
 	background-color: rgb(255,253,84);
 	text-align: center;
@@ -25,7 +30,7 @@
 }
 
 .yellow {
-	background-color: rgb(255,253,84); 
+	background-color: rgb(255,253,84);
 	border: 3px solid black;
 	margin: 15px;
 	color: black;
@@ -50,4 +55,80 @@
 footer p{
 	background-color: rgb(255,253,84);
 	margin: 0;
+}
+
+/* FAQ */
+
+.titre_faq h1 {
+	text-align: center;
+    font-size: 1.8rem;
+    border: 0.5rem solid blue;
+    background-color: white;
+    color: blue;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 4rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+
+
+/* Espacement entre les questions */
+.faq{
+        margin: 2rem 0;
+}
+
+/* Masquer les checkbox et les paragraphes */
+.faq-section input,
+.faq-section p {
+        display: none;
+}
+
+
+/* Si le checkbox est coché, montrer le texte */
+.faq-section input[type=checkbox]:checked~p{
+        display: block;
+        color: blue;
+        font-size: 0.7rem;
+        border: 0.3rem solid blue;
+        padding: 10px;
+        margin-left: 20%;
+        margin-right: 20%;
+        background-color: white;
+        text-align: justify;
+}
+
+/* Style des label */
+.faq-section label{
+        color : #fff;
+        cursor: pointer;
+        background: blue;
+        display: block;
+        position: relative;
+        padding: 15px;
+        font-weight: bold;
+
+        text-shadow: 0 1px 0 rgba(255,255,255,.5);
+        transition: all .15s ease-out;
+        text-align: center;
+        font-size: 1.1rem;
+        margin-left: 20%;
+        margin-right: 20%;
+}
+
+/* Éviter de sélectionner le texte en cliquant plusieurs fois */
+.faq-section label::selection{
+        background: none;
+}
+
+.faq-section label:hover{
+        background-color: red;
+}
+
+/* Style du label si le checkbox est coché */
+.faq-section input[type=checkbox]:checked~label{
+        border-color: green;
+        background: green;
+        box-shadow: 0 0 1px rgba(0,0,0,.4);
 }

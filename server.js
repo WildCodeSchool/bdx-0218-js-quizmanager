@@ -11,20 +11,25 @@ app.set('view engine', 'ejs');
 
 // use res.render to load up an ejs view file
 
-// index page 
+// index page
 app.get('/', function(req, res) {
     res.render('pages/index');
 });
 
-// about page 
+// about page
 app.get('/admin', function(req, res) {
     res.render('pages/admin');
 });
 
-// acceuil page 
+// FAQ page
+app.get('/faq', function(req, res) {
+    res.render('pages/faq');
+});
+
+// acceuil page
 app.get('/acceuil', function(req, res) {
     res.render('pages/acceuil');
-    
+
 });
 app.listen(3000);
 console.log('3000 have to be changed in 8080 for prod');
