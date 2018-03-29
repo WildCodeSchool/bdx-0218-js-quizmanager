@@ -21,9 +21,9 @@ app.get('/admin', function(req, res) {
     res.render('pages/admin');
 });
 
-// acceuil page 
-app.get('/acceuil', function(req, res) {
-    res.render('pages/acceuil');
+// accueil page 
+app.get('/accueil', function(req, res) {
+    res.render('pages/accueil');
     
 });
 app.listen(3000);
