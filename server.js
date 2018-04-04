@@ -27,9 +27,9 @@ app.get('/faq', function(req, res) {
 });
 
 // acceuil page
-app.get('/acceuil', function(req, res) {
-    res.render('pages/acceuil');
-  
+app.get('/accueil', function(req, res) {
+    res.render('pages/accueil');
+
 });
 app.listen(3000);
 console.log('3000 have to be changed in 8080 for prod');
