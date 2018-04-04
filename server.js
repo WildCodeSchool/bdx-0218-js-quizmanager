@@ -27,8 +27,14 @@ app.get('/faq', function(req, res) {
 });
 
 // acceuil page
-app.get('/acceuil', function(req, res) {
-    res.render('pages/acceuil');
+app.get('/accueil', function(req, res) {
+    res.render('pages/accueil');
+  
+});
+
+// formulaire de contact
+app.get('/contact', function(req, res) {
+    res.render('pages/contact');
   
 });
 app.listen(3000);

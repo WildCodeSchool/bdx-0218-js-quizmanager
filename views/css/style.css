@@ -137,6 +137,7 @@ footer .row {
   .picture {
   	display: none;
   }
+}
   
 footer p{
 	background-color: rgb(255,253,84);
@@ -148,7 +149,7 @@ footer p{
 .titre_faq h1 {
 	text-align: center;
     font-size: 1.8rem;
-    border: 0.5rem solid blue;
+    border: 0.3rem solid blue;
     background-color: white;
     color: blue;
     margin-left: 20%;
@@ -217,4 +218,103 @@ footer p{
         border-color: green;
         background: green;
         box-shadow: 0 0 1px rgba(0,0,0,.4);
+}
+
+
+/*CSS formulaire*/
+
+
+form {
+display: flex;
+flex-direction: column;
+justify-content: center;
+margin: 5%;
+}
+
+.titre {
+    border: 0.3rem solid #0025f5;
+    background-color: white;
+    font-size: 2.5rem;
+    margin: 1rem 0 0.25rem 0;
+    text-align: center;
+    flex: 1;
+    color: red;
+}
+
+input {
+    padding: 1rem;
+    color: white;
+    background-color: #0025f5;
+    border: 0.3rem solid #0025f5;
+    margin: 0.3rem 0 0.3rem 0;
+}
+
+input:invalid {
+border: 1px solid #ff0000;
+}
+
+input[type=submit] {
+    background-color: white;
+    padding: 1rem 1rem 1rem 0rem;
+    color:#ff0000;
+}
+
+input[type=submit]:hover{
+    background-color:#0025f5; 
+    color: white;
+    border:solid #ff0000 ;
+
+}
+textarea {
+    border: 0.3rem solid #ff0000;
+    margin: 0.25rem 0 0.25rem 0;
+    flex: 1;
+    font-size: 1em;
+    padding: 0;
+    resize: none;
+    height: 9rem;
+    }
+
+::-webkit-input-placeholder{  /* Chrome/Opera/Safari */
+  color: white;
+  font-size :1.5rem;
+
+}
+
+
+:-moz-placeholder{
+
+  color: white;
+  font-size :1.5rem;
+
+}
+
+.message::-webkit-input-placeholder {  /*Chrome/Opera/Safari */
+ color:#ff0000;
+ font-size :1rem;	
+
+}
+.message::-moz-placeholder {  /*Chrome/Opera/Safari */
+ color:#ff0000;
+ font-size :1rem;	
+ height: 9rem;
+resize: none;
+
+}
+
+
+@media screen and (min-width:800px){
+form {
+
+    margin: 10% 30% 5% 30%;
+}
+}
+
+
+@media screen and (min-width:900px){
+input{
+    background-color: #0025f5;
+    flex: 1;
+
+}
 }
