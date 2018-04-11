@@ -329,7 +329,7 @@ resize: none;
 form {
 
     margin: 10% 30% 5% 30%;
-}
+  }
 }
 
 
@@ -338,8 +338,8 @@ input{
     background-color: #0025f5;
     flex: 1;
 
+  }
 }
-
 /*///////////////////*/
 /* "JOUER A UN QUIZ" */
 /*///////////////////*/

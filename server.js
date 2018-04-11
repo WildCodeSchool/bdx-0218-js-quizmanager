@@ -16,6 +16,11 @@ app.get('/', function(req, res) {
     res.render('pages/index');
 });
 
+// play page
+app.get('/jouer', function(req, res) {
+    res.render('pages/jouer');
+});
+
 // about page
 app.get('/admin', function(req, res) {
     res.render('pages/admin');
@@ -36,10 +41,11 @@ app.get('/accueil', function(req, res) {
 // formulaire de contact
 app.get('/contact', function(req, res) {
     res.render('pages/contact');
-  
+});
+
 // search quiz page
 app.get('/searchquiz', function(req, res) {
     res.render('pages/searchquiz');
 });
 app.listen(3000);
-console.log('3000 have to be changed in 8080 for prod');
+console.log('3000 have to be changed in 80 for prod');
