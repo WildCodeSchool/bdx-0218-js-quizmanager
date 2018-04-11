@@ -36,6 +36,13 @@ app.get('/accueil', function(req, res) {
 // formulaire de contact
 app.get('/contact', function(req, res) {
     res.render('pages/contact');
+});
+
+// page question
+
+app.get('/question',function(req,res){
+	res.render('pages/questionspages');
+});
   
 // search quiz page
 app.get('/searchquiz', function(req, res) {
