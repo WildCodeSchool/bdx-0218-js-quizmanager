@@ -1,3 +1,6 @@
+header {
+  margin-bottom: 5%;
+}
 
 .containerNav{
     display: flex;
@@ -37,7 +40,7 @@
   }
 
 .leftmenu, .rightmenu{
-	border-bottom: 2px solid black;
+	border-bottom: 0.3rem solid blue;
 	text-align: center;
 }
 
@@ -124,10 +127,10 @@
   z-index:10000000000000;
   color: red;
 }
-.menu{z-index:1000000; font-weight:bold; font-size:0.8em; width:100%; /*background:#f1f1f1;*/  position:absolute; text-align:center; font-size:12px;}
-.menu ul {margin: 0; padding: 0; list-style-type: none; list-style-image: none;margin-left: 0px;}
+.menu{z-index:1000000; font-weight:bold; font-size:0.8em; width:100%; background:#fffd54ff;  position:absolute; text-align:center; font-size:12px; height : 100%;}
+.menu ul {margin-top: 13%; padding: 0; list-style-type: none; list-style-image: none;margin-left: 0px;}
 .menu li {font-family: 'Dosis', sans-serif; display: block;   padding:15px 0 15px 0;}
-.menu li:hover{display: block; background:##fffd54ff; padding:15px 0 15px 0;}
+.menu li:hover{display: block; background:#fffd54ff; padding:15px 0 15px 0;}
 .menu ul li a { text-decoration:none;  margin: 0px;}
 .menu ul li a:hover {  color: #666; text-decoration:none;}
 .menu a{text-decoration:none; color:red; font-size: 33px;}
@@ -146,13 +149,13 @@
 /*FIN MENU BURGER*/
 
 /*PASSAGE NAV DESKTOP-MOBILE*/
-@media (max-width: 768px) {
+@media (max-width: 968px) {
       .navDesktop{
           visibility: hidden;
           }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 968px) {
         .cross , .hamburger , .navBurger{
           visibility: hidden;
                   }
