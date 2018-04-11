@@ -32,9 +32,21 @@ app.get('/faq', function(req, res) {
 });
 
 // acceuil page
-app.get('/acceuil', function(req, res) {
-    res.render('pages/acceuil');
+
+app.get('/accueil', function(req, res) {
+    res.render('pages/accueil');
   
 });
+
+// formulaire de contact
+app.get('/contact', function(req, res) {
+    res.render('pages/contact');
+});
+
+// search quiz page
+app.get('/searchquiz', function(req, res) {
+    res.render('pages/searchquiz');
+});
+
 app.listen(3000);
 console.log('3000 have to be changed in 8080 for prod');

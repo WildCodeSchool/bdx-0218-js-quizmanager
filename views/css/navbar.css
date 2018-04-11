@@ -1,0 +1,163 @@
+header {
+  margin-bottom: 5%;
+}
+
+.containerNav{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.col{
+    flex: 1;
+}
+
+.titrenavhaut {
+    font-family: 'Dosis', sans-serif;
+    font-weight: bold;
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.titrenavhaut>li>a {
+    color: red;
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 30px;
+  }
+
+.titrenavhaut>li>a:hover {
+    color: blue;
+  }
+
+.leftmenu, .rightmenu{
+	border-bottom: 0.3rem solid blue;
+	text-align: center;
+}
+
+
+
+.navDesktop {
+	text-align: center;
+}
+
+.quizzTitre {
+	margin: 42px 0 -18px;
+  font-family: 'Dosis', sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  color : blue;
+}
+
+.titrenavhaut{
+	min-height: 0px;
+  margin-bottom: 0px;
+}
+
+/*TRIANGLES*/
+.VERT{
+	position: absolute;
+    max-width: 24px;
+    z-index: -1;
+    left: 45px;
+    top: 56px;
+}
+
+.JAUNE{
+	position: absolute;
+    max-width: 24px;
+    z-index: -1;
+    left: 155px;
+    top: 56px;
+}
+
+.BLANC{
+	position: absolute;
+    max-width: 24px;
+    z-index: -1;
+    right: 124px;
+    top:56px;
+}
+
+.ROUGE{
+	position: absolute;
+    max-width: 24px;
+    z-index: -1;
+    right: 25px;
+    top: 56px;
+  }
+/*FIN TRIANGLES*/
+
+/*MENU BURGER*/
+.hamburger{
+  background:none;
+  position:absolute;
+  line-height:45px;
+  padding:21px 15px 0px 15px;
+  color:#999;
+  border:0;
+  font-size:3em;
+  font-weight:bold;
+  cursor:pointer;
+  outline:none;
+  z-index:10000000000000;
+  color: red;
+}
+
+.cross{
+  background:none;
+  position:absolute;
+  padding:21px 15px 0px 15px;
+  color:#999;
+  border:0;
+  font-size:5em;
+  line-height:65px;
+  font-weight:bold;
+  cursor:pointer;
+  outline:none;
+  z-index:10000000000000;
+  color: red;
+}
+.menu{z-index:1000000; font-weight:bold; font-size:0.8em; width:100%; background:#fffd54ff;  position:absolute; text-align:center; font-size:12px; height : 100%;}
+.menu ul {margin-top: 13%; padding: 0; list-style-type: none; list-style-image: none;margin-left: 0px;}
+.menu li {font-family: 'Dosis', sans-serif; display: block;   padding:15px 0 15px 0;}
+.menu li:hover{display: block; background:#fffd54ff; padding:15px 0 15px 0;}
+.menu ul li a { text-decoration:none;  margin: 0px;}
+.menu ul li a:hover {  color: #666; text-decoration:none;}
+.menu a{text-decoration:none; color:red; font-size: 33px;}
+.menu a:hover{text-decoration:none; color:#666;}
+.menu ul li a:hover{
+  border : none;
+  color: blue;
+}
+
+.glyphicon-home{
+  color:white;
+  font-size:1.5em;
+  margin-top:5px;
+  margin:0 auto;
+}
+/*FIN MENU BURGER*/
+
+/*PASSAGE NAV DESKTOP-MOBILE*/
+@media (max-width: 968px) {
+      .navDesktop{
+          visibility: hidden;
+          }
+}
+
+@media (min-width: 968px) {
+        .cross , .hamburger , .navBurger{
+          visibility: hidden;
+                  }
+}
+/*FIN PASSAGE NAV DESKTOP-MOBILE*/
