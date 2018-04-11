@@ -30,7 +30,13 @@ app.get('/faq', function(req, res) {
 
 app.get('/accueil', function(req, res) {
     res.render('pages/accueil');
+  
+});
 
+// formulaire de contact
+app.get('/contact', function(req, res) {
+    res.render('pages/contact');
+  
 // search quiz page
 app.get('/searchquiz', function(req, res) {
     res.render('pages/searchquiz');
