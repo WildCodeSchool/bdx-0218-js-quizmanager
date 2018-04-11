@@ -21,6 +21,11 @@ app.get('/admin', function(req, res) {
     res.render('pages/admin');
 });
 
+// play page
+app.get('/jouer', function(req, res) {
+    res.render('pages/jouer');
+});
+
 // FAQ page
 app.get('/faq', function(req, res) {
     res.render('pages/faq');
