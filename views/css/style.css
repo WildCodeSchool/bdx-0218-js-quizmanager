@@ -9,6 +9,29 @@ body {
 	font-family: 'dosisregular', sans-serif;
 }
 
+
+h1{
+  font-size: 2.8rem;
+}
+
+h2{
+  font-size: 2.1rem;
+}
+
+h3{
+  font-size: 1.7rem;
+}
+
+
+body h1 {
+  color: blue;
+}
+
+body h2{
+  color: white;
+  padding-top: 0.5rem;
+}
+
 .acceuil {
 
 	text-align: center;
@@ -26,7 +49,7 @@ body {
 .row {
 	display: flex;
 	justify-content: center;
-	align-items: stretch;	
+	align-items: stretch;
 }
 
 .col {
@@ -220,7 +243,6 @@ footer p{
         box-shadow: 0 0 1px rgba(0,0,0,.4);
 }
 
-
 /*CSS formulaire*/
 
 
@@ -317,4 +339,76 @@ input{
     flex: 1;
 
 }
+
+/*///////////////////*/
+/* "JOUER A UN QUIZ" */
+/*///////////////////*/
+
+/* Le fond jaune derrière les quizs*/
+
+.backgroundcaroussel {
+  background-color: #fffd54ff;
+  text-align: center;
+  }
+
+
+	/* Le grand cadre blanc à bord bleu qui entoure les quizs. */
+
+.whiteframe {
+  background-color: white;
+  border: 0.3rem blue solid;
+  margin: 2rem;
+  padding: 1rem;
+}
+
+
+
+/* Les carrés blancs dans lesquels sont les favicons rouges */
+
+.whitesquare {
+  background-color: white;
+  border: 0.3rem red solid;
+  margin: 1rem;
+  width: 12rem;
+  height: 13rem;
+}
+
+
+
+/* Les rectangles oranges avec le titres des quizs*/
+
+.redrectangle {
+  background-color: red;
+  height: 4rem;
+  width: 12rem;
+}
+
+
+/* Les images du quizs */
+
+
+img {
+  margin-top: 1rem;
+}
+
+
+.rowa {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+
+
+/* L'encadré TRIER / FILTRER */
+
+.rowi h1 {
+  background-color: white;
+  border: 0.3rem blue solid;
+  width: auto;
+  margin: 2rem;
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
