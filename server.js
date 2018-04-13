@@ -22,6 +22,11 @@ app.get('/admin', function(req, res) {
     res.render('pages/admin');
 });
 
+// play page
+app.get('/jouer', function(req, res) {
+    res.render('pages/jouer');
+});
+
 // FAQ page
 app.get('/faq', function(req, res) {
     res.render('pages/faq', {varFloat:"floatt"});
@@ -37,11 +42,13 @@ app.get('/accueil', function(req, res) {
 // formulaire de contact
 app.get('/contact', function(req, res) {
     res.render('pages/contact');
-  
+});
+
 // search quiz page
 app.get('/searchquiz', function(req, res) {
     res.render('pages/searchquiz');
 });
+
 
 // CREER page
 app.get('/creer', function(req, res) {
