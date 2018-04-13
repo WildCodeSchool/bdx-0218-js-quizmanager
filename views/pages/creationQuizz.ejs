@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <% include ../partials/head %>
+</head>
+<body>
+
+<header>
+  <% include ../partials/header %>
+</header>
+
+<div class="row">
+  <div class="col">
+    <h2 id="numeroQuestion" class="titreCreer">QUESTION 1</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <p id="question" class="cadreQuestion">Pose ici la question de ton quizz.
+Max : 120 caractères.
+Exemple :
+Quels sont les états d’un fluide ?
+</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <p id="reponse1" class="cadreReponse">Ecris ici ta première réponse</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <p id="reponse2" class="cadreReponse">Ecris ici ta deuxième réponse</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <p id="reponse3" class="cadreReponse">Ecris ici ta troisième réponse</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <p id="reponse4" class="cadreReponse">Ecris ici ta quatrième réponse</p>
+  </div>
+</div>
+
+<div class="row boutonsCreationAide">
+  <div class="col">
+    <h2 class="oui">PAST</h2>
+  </div>
+  <div class="col">
+    <h2 class="aide"><a href="/finquizz" class="textOui">NEXT</a></h2>
+  </div>
+</div>
+
+<footer>
+    <% include ../partials/footer %>
+</footer>
+<% include ../partials/scripts %>
+</body>
+</html>

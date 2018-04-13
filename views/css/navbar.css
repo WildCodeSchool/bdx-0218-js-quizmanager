@@ -1,5 +1,5 @@
 header {
-  margin-bottom: 5%;
+  margin-bottom: 2%;
 }
 
 .containerNav{
@@ -56,6 +56,12 @@ header {
   font-size: 40px;
   font-weight: bold;
   color : blue;
+}
+
+.QUIZLANDTITRE{
+    list-style: none;
+    text-decoration: none;
+    color: inherit
 }
 
 .titrenavhaut{
@@ -148,6 +154,21 @@ header {
 }
 /*FIN MENU BURGER*/
 
+@keyframes float {
+	0% {
+		transform: translatey(0px);
+	}
+	50% {
+		transform: translatey(10px);
+	}
+	100% {
+		transform: translatey(0px);
+	}
+}
+
+#floatt{
+  animation: float 6s ease-in-out infinite;
+}
 /*PASSAGE NAV DESKTOP-MOBILE*/
 @media (max-width: 968px) {
       .navDesktop{
@@ -160,4 +181,11 @@ header {
           visibility: hidden;
                   }
 }
+
+@media (max-width: 968px) {
+      header{
+        margin-bottom : -4%;
+          }
+}
+
 /*FIN PASSAGE NAV DESKTOP-MOBILE*/
