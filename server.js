@@ -26,6 +26,12 @@ app.get('/jouer', function(req, res) {
     res.render('pages/jouer');
 });
 
+// page question
+
+app.get('/questionspage',function(req,res){
+	res.render('pages/questionspage');	
+});
+
 // FAQ page
 app.get('/faq', function(req, res) {
     res.render('pages/faq');
@@ -34,8 +40,7 @@ app.get('/faq', function(req, res) {
 // acceuil page
 
 app.get('/accueil', function(req, res) {
-    res.render('pages/accueil');
-  
+    res.render('pages/accueil'); 
 });
 
 // formulaire de contact
