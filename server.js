@@ -2,7 +2,7 @@
 // load the things we need
 var express = require('express');
 var app = express();
-
+var getQuiz = require('./controlers/js/mysql')
 
 app.use('/views', express.static('views'));
 
@@ -46,6 +46,12 @@ app.get('/contact', function(req, res) {
 // search quiz page
 app.get('/searchquiz', function(req, res) {
     res.render('pages/searchquiz');
+});
+
+app.get('/:id(\\d+)',(req,res)=> {
+  getQuiz(req.params.id, function(data) {
+    res.render('pages/jouer',{quiz: data});  
+  });
 });
 
 app.listen(3000);
