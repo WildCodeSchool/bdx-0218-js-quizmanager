@@ -5,7 +5,7 @@ html {
 
 body {
 	font-size: 62.5%;
-	background-color: #fffd54ff;
+	background-color: rgb(255,253,84);
 	font-family: 'dosisregular', sans-serif;
 }
 
@@ -168,6 +168,7 @@ footer .row {
 
 footer p{
 	background-color: rgb(255,253,84);
+	background-color: transparent;
 	margin: 0;
 }
 
@@ -344,7 +345,7 @@ input{
     flex: 1;
   }
 }
-}
+
 /*///////////////////*/
 /* "JOUER A UN QUIZ" */
 /*///////////////////*/

@@ -1,0 +1,163 @@
+.titreCreer {
+  	margin: 1.5rem auto;
+  	padding: 1rem;
+  	width: 20rem;
+  	background-color: white;
+  	color: #0025f5;
+  	font-size: 2.1rem;
+  	font-weight: bold;
+  	border: 0.3rem solid #0025f5;
+    text-align: center;
+}
+
+.cadreQuestion {
+  	margin: 1rem auto;
+  	padding: 1rem;
+  	width: 50%;
+  	background-color: white;
+  	color: #0025f5;
+  	font-size: 1.5rem;
+  	font-weight: bold;
+  	border: 0.3rem solid #0025f5;
+    text-align: center;
+}
+
+.cadreReponse {
+  	margin: 0.3rem auto;
+  	padding: 1rem;
+  	width: 60%;
+  	background-color: white;
+  	color: #0025f5;
+  	font-size: 1.5rem;
+  	font-weight: bold;
+  	border: 0.3rem solid #0025f5;
+    text-align: center;
+}
+
+.quizzyPng {
+  margin-top: 181px;
+
+}
+
+.quizzy {
+  width: 10rem;
+  margin-right: 46%;
+  margin-left: 36%;
+}
+
+/*DEBUT BULLE QUIZZY*/
+div.speech {
+  overflow-wrap: normal;
+  color: red;
+  font-size: 1.2rem;
+  font-weight: bold;
+  position: absolute;
+  width: 200px;
+  height: 100px;
+  text-align: center;
+  background-color: transparent;
+  border: 0.3rem solid red;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  -webkit-box-shadow: 2px 2px 4px #888;
+  -moz-box-shadow: 2px 2px 4px #888;
+  box-shadow: 2px 2px 4px #888;
+  margin-left: 43%;
+  margin-top: 2%;
+  animation: float 6s ease-in-out infinite;
+}
+
+div.speech:before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 30px;
+  top: 100px;
+  border: 25px solid;
+  border-color: red transparent transparent red;
+}
+
+div.speech:after {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 38px;
+  top: 100px;
+  border: 17px solid;
+  border-color: rgb(255,253,84) transparent transparent rgb(255,253,84);
+}
+/*FIN BULLE QUIZZY*/
+
+.oui {
+  color: white;
+  text-align: center;
+  margin: 1.5rem auto;
+  padding: 1rem;
+  width: 7rem;
+  background-color: #0025f5;;
+  font-size:1.1rem;
+  font-weight: bold;
+  border: 0.3rem solid #0025f5;
+}
+
+.oui:hover {
+  color : red;
+	background-color: white;
+	border: 0.3rem solid red;
+}
+
+.textOui {
+  color : white;
+  font-size:1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+
+}
+
+.textOui:hover{
+  color: red;
+}
+
+
+.aide {
+  text-align: center;
+  color : white;
+	margin: 1.5rem auto;
+	padding: 1rem;
+	width: 7rem;
+	background-color: #0025f5;;
+	font-size:1.1rem;
+	font-weight: bold;
+	border: 0.3rem solid #0025f5;
+}
+
+
+.aide:hover {
+  color : red;
+	background-color: white;
+	border: 0.3rem solid red;
+}
+
+
+@keyframes float {
+	0% {
+		transform: translatey(0px);
+	}
+	50% {
+		transform: translatey(15px);
+	}
+	100% {
+		transform: translatey(0px);
+	}
+}
+
+
+@media (max-width: 968px) {
+      .quizzy{
+        margin-right: 46%;
+        margin-left: 25%;
+          }
+}

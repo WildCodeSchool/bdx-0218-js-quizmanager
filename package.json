@@ -4,7 +4,8 @@
   "dependencies": {
     "ejs": "^1.0.0",
     "express": "^4.6.1",
-    "mysql": "^2.15.0"
+    "mysql": "^2.15.0",
+    "nodemon": "^1.17.3"
   },
   "repository": {
     "type": "git",
