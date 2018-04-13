@@ -17,6 +17,11 @@ app.get('/', function(req, res) {
     res.render('pages/index');
 });
 
+// play page
+app.get('/jouer', function(req, res) {
+    res.render('pages/jouer');
+});
+
 // about page
 app.get('/admin', function(req, res) {
     res.render('pages/admin');
@@ -27,6 +32,12 @@ app.get('/jouer', function(req, res) {
     res.render('pages/jouer');
 });
 
+// page question
+
+app.get('/questionspage',function(req,res){
+	res.render('pages/questionspage');	
+});
+
 // FAQ page
 app.get('/faq', function(req, res) {
     res.render('pages/faq', {varFloat:"floatt"});
@@ -35,8 +46,7 @@ app.get('/faq', function(req, res) {
 // acceuil page
 
 app.get('/accueil', function(req, res) {
-    res.render('pages/accueil');
-  
+    res.render('pages/accueil'); 
 });
 
 // formulaire de contact
@@ -48,7 +58,6 @@ app.get('/contact', function(req, res) {
 app.get('/searchquiz', function(req, res) {
     res.render('pages/searchquiz');
 });
-
 
 // CREER page
 app.get('/creer', function(req, res) {
@@ -68,4 +77,5 @@ app.get('/bravo', function(req, res) {
 });
 
 app.listen(3000);
-console.log('3000 have to be changed in 8080 for prod');
+
+console.log('3000 have to be changed in 80 for prod');

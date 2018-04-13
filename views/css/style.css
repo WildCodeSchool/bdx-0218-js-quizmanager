@@ -32,6 +32,10 @@ body h2{
   padding-top: 0.5rem;
 }
 
+.col a:link 
+{ 
+text-decoration:none; 
+} 
 .acceuil {
 
 	text-align: center;
@@ -259,6 +263,7 @@ margin: 5%;
     background-color: white;
     font-size: 2.5rem;
     margin: 1rem 0 0.25rem 0;
+	padding: 0.8rem;
     text-align: center;
     flex: 1;
     color: red;
@@ -413,3 +418,46 @@ img {
   flex-wrap: wrap;
   justify-content: space-around;
 }
+
+/*///////////////////*/
+/* "QUESTION QUIZ" */
+/*///////////////////*/
+
+	.question{
+margin: 5%;
+	}
+	
+
+
+.head{
+text-align: center;
+}
+
+
+
+	.titreQuestion{
+	color:red;
+}
+
+.reply{
+	display: flex;
+	height: 10rem;
+}
+
+	.reply ul{
+	list-style-type: none;	
+	width: 40%; 
+	margin: auto;
+	padding: 0;
+
+
+	}
+	
+	.reply li{
+	background-color: #0025f5;
+    border: 0.3rem solid #0025f5;
+	color:white;
+	font-size: 1.8rem;
+	text-align: center;
+	margin: 0.5rem 0 ;
+	}
