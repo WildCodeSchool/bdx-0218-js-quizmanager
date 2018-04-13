@@ -2,7 +2,7 @@
 // load the things we need
 var express = require('express');
 var app = express();
-
+var varFloat = "";
 
 app.use('/views', express.static('views'));
 
@@ -12,6 +12,7 @@ app.set('view engine', 'ejs');
 // use res.render to load up an ejs view file
 
 // index page
+
 app.get('/', function(req, res) {
     res.render('pages/index');
 });
@@ -28,7 +29,7 @@ app.get('/jouer', function(req, res) {
 
 // FAQ page
 app.get('/faq', function(req, res) {
-    res.render('pages/faq');
+    res.render('pages/faq', {varFloat:"floatt"});
 });
 
 // acceuil page
@@ -46,6 +47,24 @@ app.get('/contact', function(req, res) {
 // search quiz page
 app.get('/searchquiz', function(req, res) {
     res.render('pages/searchquiz');
+});
+
+
+// CREER page
+app.get('/creer', function(req, res) {
+    res.render('pages/creer', {varFloat:"floatt"});
+});
+
+app.get('/creation', function(req, res) {
+    res.render('pages/creationQuizz', {varFloat:"floatt"});
+});
+
+app.get('/finquizz', function(req, res) {
+    res.render('pages/FinQuizz', {varFloat:"floatt"});
+});
+
+app.get('/bravo', function(req, res) {
+    res.render('pages/FinQuizz', {varFloat:"floatt"});
 });
 
 app.listen(3000);
