@@ -2,7 +2,7 @@
 // load the things we need
 var express = require('express');
 var app = express();
-var getQuiz = require('./controlers/js/mysql')
+var getQuizInfos = require('./controlers/js/mysql')
 
 app.use('/views', express.static('views'));
 
@@ -49,10 +49,10 @@ app.get('/searchquiz', function(req, res) {
 });
 
 app.get('/:id(\\d+)',(req,res)=> {
-  getQuiz(req.params.id, function(data) {
-    res.render('pages/jouer',{quiz: data});  
+  getQuizInfos(req.params.id, function(data) {
+    res.render('pages/jouer',{id: data.id, title:data.title, category:data.category});  
   });
 });
 
 app.listen(3000);
-console.log('3000 have to be changed in 8080 for prod');
+console.log('3000 have to be changed in 80 for prod');
