@@ -35,7 +35,7 @@ app.get('/jouer', function(req, res) {
 // page question
 
 app.get('/questionspage',function(req,res){
-	res.render('pages/questionspage');	
+	res.render('pages/questionspage');
 });
 
 // FAQ page
@@ -46,7 +46,7 @@ app.get('/faq', function(req, res) {
 // acceuil page
 
 app.get('/accueil', function(req, res) {
-    res.render('pages/accueil'); 
+    res.render('pages/accueil');
 });
 
 // formulaire de contact
@@ -60,12 +60,12 @@ app.get('/searchquiz', function(req, res) {
 });
 
 // CREER page
-app.get('/creer', function(req, res) {
-    res.render('pages/creer', {varFloat:"floatt"});
+app.get('/creationQuizz', function(req, res) {
+    res.render('pages/creationQuizz', {varFloat:"floatt"});
 });
 
 app.get('/creation', function(req, res) {
-    res.render('pages/creationQuizz', {varFloat:"floatt"});
+    res.render('pages/creer', {varFloat:"floatt"});
 });
 
 app.get('/finquizz', function(req, res) {
