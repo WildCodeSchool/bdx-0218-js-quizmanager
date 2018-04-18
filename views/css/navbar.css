@@ -1,13 +1,9 @@
 header {
-  margin-bottom: 2%;
+  margin-bottom: 5rem;
 }
 
 .containerNav{
     display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 100px;
-    padding-right: 100px;
 }
 
 .col{
@@ -17,30 +13,26 @@ header {
 .titrenavhaut {
     font-family: 'Dosis', sans-serif;
     font-weight: bold;
-    position: relative;
-    min-height: 50px;
-    margin-bottom: 20px;
-    border: 1px solid transparent;
-    padding-left: 0;
-    margin-bottom: 0;
+    padding: 2.1rem;
+    margin: 2rem;
     list-style: none;
 }
 
 .titrenavhaut>li>a {
-    color: red;
-    position: relative;
+    color: yellow;
+    position: center;
     display: block;
-    padding: 10px 15px;
+    padding: 1rem;
     text-decoration: none;
-    font-size: 30px;
+    font-size: 2.8rem;
   }
 
 .titrenavhaut>li>a:hover {
-    color: blue;
+    color: red;
   }
 
 .leftmenu, .rightmenu{
-	border-bottom: 0.3rem solid blue;
+	border-bottom: 0.3rem solid yellow;
 	text-align: center;
 }
 
@@ -51,11 +43,11 @@ header {
 }
 
 .quizzTitre {
-	margin: 42px 0 -18px;
+	margin: 50px 3rem -30px;
   font-family: 'Dosis', sans-serif;
-  font-size: 40px;
+  font-size: 6rem;
   font-weight: bold;
-  color : blue;
+  color : red;
 }
 
 .QUIZLANDTITRE{
@@ -69,39 +61,7 @@ header {
   margin-bottom: 0px;
 }
 
-/*TRIANGLES*/
-.VERT{
-	position: absolute;
-    max-width: 24px;
-    z-index: -1;
-    left: 45px;
-    top: 56px;
-}
 
-.JAUNE{
-	position: absolute;
-    max-width: 24px;
-    z-index: -1;
-    left: 155px;
-    top: 56px;
-}
-
-.BLANC{
-	position: absolute;
-    max-width: 24px;
-    z-index: -1;
-    right: 124px;
-    top:56px;
-}
-
-.ROUGE{
-	position: absolute;
-    max-width: 24px;
-    z-index: -1;
-    right: 25px;
-    top: 56px;
-  }
-/*FIN TRIANGLES*/
 
 /*MENU BURGER*/
 .hamburger{
@@ -109,21 +69,21 @@ header {
   position:absolute;
   line-height:45px;
   padding:21px 15px 0px 15px;
-  color:#999;
+  color:yellow;
   border:0;
   font-size:3em;
   font-weight:bold;
   cursor:pointer;
   outline:none;
   z-index:10000000000000;
-  color: red;
+  color: yellow;
 }
 
 .cross{
   background:none;
   position:absolute;
   padding:21px 15px 0px 15px;
-  color:#999;
+  color:yellow;
   border:0;
   font-size:5em;
   line-height:65px;
@@ -131,7 +91,7 @@ header {
   cursor:pointer;
   outline:none;
   z-index:10000000000000;
-  color: red;
+  color: yellow;
 }
 .menu{z-index:1000000; font-weight:bold; font-size:0.8em; width:100%; background:#fffd54ff;  position:absolute; text-align:center; font-size:12px; height : 100%;}
 .menu ul {margin-top: 13%; padding: 0; list-style-type: none; list-style-image: none;margin-left: 0px;}
