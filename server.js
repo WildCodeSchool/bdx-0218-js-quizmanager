@@ -2,6 +2,8 @@
 // load the things we need
 var express = require('express');
 var app = express();
+var getQuizInfos = require('./controlers/js/mysql')
+
 var varFloat = "";
 
 app.use('/views', express.static('views'));
@@ -59,6 +61,12 @@ app.get('/searchquiz', function(req, res) {
     res.render('pages/searchquiz');
 });
 
+app.get('/:id(\\d+)',(req,res)=> {
+  getQuizInfos(req.params.id, function(data) {
+    res.render('pages/jouer',{id: data.id, title:data.title, category:data.category});  
+  });
+});
+
 // CREER page
 app.get('/creationQuizz', function(req, res) {
     res.render('pages/creationQuizz', {varFloat:"floatt"});
@@ -77,5 +85,4 @@ app.get('/bravo', function(req, res) {
 });
 
 app.listen(3000);
-
 console.log('3000 have to be changed in 80 for prod');
