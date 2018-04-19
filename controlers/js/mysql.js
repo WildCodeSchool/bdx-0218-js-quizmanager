@@ -106,7 +106,7 @@ getLastQuiz = (cb) => {
         } else {
         }
         connection.query(
-          `SELECT id, title, category FROM Quiz ORDER BY date DESC LIMIT 4;`, (err, rows) => {
+          `SELECT id, title, category FROM Quiz WHERE checked=1 ORDER BY date DESC LIMIT 4`, (err, rows) => {
               if (err) {
                 throw err;
               } else {
@@ -127,54 +127,55 @@ getLastQuiz = (cb) => {
   }
 }
 
-// setQuiz = (obj) => {
-//    try {
-//     let lastQuiz = [];
-//     const connection = mysql.createConnection(connectionParameters);
-//     connection.connect((err) => {
-//       try {
-//         if (err) {
-//           throw ('connection with the database failed '+err);
-//         } else {
-//           connection.query(
-//           `INSERT INTO Quiz(title, category) VALUES ('obj.title','obj.category');
-//           SELECT @@IDENTITY as ID;`, (err, rows) => {
-//               if (err) {
-//                 throw err;
-//               } else {
-//                 for (var i = 0; i < 10; i++) {
-//                   connection.query(   
-//                     `INSERT INTO qestions(question, id_quiz) VALUES ('obj.questions[i].question','rows.ID');
-//                     SELECT @@IDENTITY as Id;`, (err, rows) => {
-//                       if (err) {
-//                         throw err;
-//                       } else {
-//                         for (var i = 0; i < 4; i++) {
-//                           connection.query(   
-//                             `INSERT INTO answers(question, id_quiz) VALUES ('obj.questions[i].question','rows.ID');
-//                             SELECT @@IDENTITY as Id`, (err, rows) => {
-//                               if (err) {
-//                                 throw err;
-//                               } else {
-//                               }
-//                             })
-//                         }
-//                       }
-//                     })
-//                 }
-//             }
-//           })
-//         }
-//       } catch (err) {
-//         throw ('An error occur '+ err);
-//       } finally {
-//         connection.end;      
-//       }
-//     })
-//   } catch (err) {
-//     throw ('An error occur '+ err);
-//   }
-// } 
+setQuiz = (obj) => {
+   try {
+    let lastQuiz = [];
+    const connection = mysql.createConnection(connectionParameters);
+    connection.connect((err) => {
+      try {
+        if (err) {
+          throw ('connection with the database failed '+err);
+        } else {
+          connection.query(
+          `INSERT INTO Quiz(title, category) VALUES ('${obj.title}','${obj.category}');`, (err, rows) => {
+              if (err) {
+                throw err;
+              } else {
+                let idQuiz = rows.insertId;
+                for (var i = 0; i < 10; i++) {
+                  const numQuestion = i;
+                  connection.query(
+                    `INSERT INTO questions(question, id_quiz) VALUES ('${obj.questions[i].question}','${idQuiz}');`, (err, rows) => {
+                      if (err) {
+                        console.log(err);
+                        throw err;
+                      } else {
+                        let idQuestion = rows.insertId;
+                        for (var j = 0; j < 4; j++) {
+                          console.log(`INSERT INTO answers(answer, great, id_questions) VALUES ('${obj.questions[numQuestion].answers[j].answer}', '${obj.questions[numQuestion].answers[j].great}' ,'${idQuestion}');`);
+                             connection.query(
+                            `INSERT INTO answers(answer, great, id_questions) VALUES ('${obj.questions[numQuestion].answers[j].answer}', '${obj.questions[numQuestion].answers[j].great}' ,'${idQuestion}');`, (err, rows) => {
+                              if (err) {
+                                throw err;
+                              }
+                            })
+                        }
+                      }
+                    })
+                }
+            }
+          })
+        }
+      } catch (err) {
+        throw ('An error occur '+ err);
+      } finally {
+        connection.end;      
+      }
+    })
+  } catch (err) {
+    throw ('An error occur '+ err);
+  }
+} 
 
 
 module.exports = getQuizInfos;
@@ -189,10 +190,90 @@ module.exports = getQuiz;
 //         console.log(JSON.stringify(data,0,2));
 //   });
 
-getQuizInfos(1,function(data) {
-        console.log(JSON.stringify(data,0,2));
-  });
+// getQuizInfos(1,function(data) {
+//         console.log(JSON.stringify(data,0,2));
+//   });
 
+
+let newQuiz =
+  
+  {title: "France",category:"Histoire", questions:[
+  
+  {question: "Apparition de l'homme", answers: [
+    {answer:"10M avt JC", great:"0"},
+    {answer:"5M avt JC", great:"0"},
+    {answer:"3M avt JC", great:"1"},
+    {answer:"2M avt JC", great:"0"}
+  ]},
+
+ {question: "La préhistoire débute", answers: [
+    {answer:"A l'apparition de l'homme", great:"0"},
+    {answer:"A l'invention de l'écriture", great:"1"},
+    {answer:"A l'âge de fer", great:"0"},
+    {answer:"A l'âge de pierre", great:"0"}
+  ]},
+
+   {question: "En 1500 avt JC, la France est conquise par", answers: [
+    {answer:"Les celtes", great:"0"},
+    {answer:"Les tribus belges", great:"0"},
+    {answer:"Les Arvernes", great:"1"},
+    {answer:"Les Wisigoth", great:"0"}
+  ]},
+
+   {question: "L'age de fer débute", answers: [
+    {answer:"1500 avt JC", great:"0"},
+    {answer:"700 avt JC", great:"1"},
+    {answer:"300 avt JC", great:"0"},
+    {answer:"300 apres JC", great:"0"}
+  ]},
+
+   {question: "Début de l'Antiquité", answers: [
+    {answer:"10000 avt JC", great:"0"},
+    {answer:"3000 avt JC", great:"1"},
+    {answer:"En 476", great:"0"},
+    {answer:"A votre inscription à la Wild", great:"0"}
+  ]},
+
+   {question: "Défaite de Vercigétorix à Alésia par", answers: [
+    {answer:"Le commandant Coustau", great:"0"},
+    {answer:"Charlemagne", great:"0"},
+    {answer:"Les vikings", great:"0"},
+    {answer:"Jules César", great:"1"}
+  ]},
+
+   {question: "Clovis 1er est le premier des", answers: [
+    {answer:"Carolingiens", great:"1"},
+    {answer:"Mérovingiens", great:"0"},
+    {answer:"Capéciens", great:"0"},
+    {answer:"SorsLeChien", great:"0"}
+  ]},
+
+   {question: "Quel est le surnom des rois Mérovingiens", answers: [
+    {answer:"Les chevelus", great:"1"},
+    {answer:"Les barbus", great:"0"},
+    {answer:"Les Moustachus", great:"0"},
+    {answer:"Les Bitniks", great:"0"}
+  ]},
+
+   {question: 'Charlemagne signifie', answers: [
+    {answer:'Charles le prompt', great:'0'},
+    {answer:'Charles le grand', great:'0'},
+    {answer:'Charles le magnifique', great:'1'},
+    {answer:'Charles,....magnes', great:'0'}
+  ]},
+
+   {question: "Quel Capitale Charlemagne c'est choisie", answers: [
+    {answer:"Paris", great:"0"},
+    {answer:"Lyon", great:"0"},
+    {answer:"Aix la Chapelle", great:"1"},
+    {answer:"Reims", great:"0"}
+  ]}
+
+]};
+
+// getQuiz(1,function(data) {
+//         setQuiz(data);
+//   });
 
 /* Pour appeler la fonction getQuiz, il faut mettre un callback qui retournera l'objet voulu comme dans l'exemple ci dessous
 

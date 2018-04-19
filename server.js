@@ -36,8 +36,10 @@ app.get('/jouer', function(req, res) {
 
 // page question
 
-app.get('/questionspage',function(req,res){
-	res.render('pages/questionspage');
+app.get('/questionspage/:id(\\d+)',function(req,res){
+    getQuizInfos(req.params.id, function(data) {
+	   res.render('pages/questionspage', {quiz: data});
+    });
 });
 
 // FAQ page
