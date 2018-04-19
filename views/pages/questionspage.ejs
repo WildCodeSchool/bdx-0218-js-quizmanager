@@ -12,8 +12,9 @@
 
 
     <section class="question">
+        
         <div class="head">
-            <h2 class="intitule_question">Quels sont les états d'un fluide ?</h2>
+            <h2 class="intitule_question"><%=quiz.questions[0].question %></h2>
             <h1 class="numero_de_question">01</h1>
         </div>
 
@@ -22,14 +23,75 @@
 
     <div class="reply">
         <ul>
-            <li class="rep1">Liquide comme l'eau</li>
-            <li class="rep2">Gaz</li>
+            <li class="rep"><%=quiz.questions[0].answers[0].answer %></li>
+            <li class="rep"><%=quiz.questions[0].answers[1].answer %></li>
         </ul>
         <ul>
-            <li class="rep3">Solide</li>
-            <li class="rep4">Mousse de type végétal</li>
+            <li class="rep"><%=quiz.questions[0].answers[2].answer %></li>
+            <li class="rep"><%=quiz.questions[0].answers[3].answer %></li>
         </ul>
     </div>
+
+<script type="text/javascript">
+
+    $(window).load(function () {
+
+        let quiz = <%- JSON.stringify(quiz,0,2) %>
+        let answers = document.getElementsByClassName('rep');
+        let questions = document.getElementsByClassName('intitule_question');
+        let number = document.getElementsByClassName('numero_de_question');
+        let questionNbr = 0;
+        let score = 0;
+
+        for (let i = 0; i < 4; i++) {
+            const index = i;
+            answers[index].addEventListener('click', function (e) {
+                score += quiz.questions[questionNbr].answers[index].great;
+                questionNbr ++;
+                changeQuestion();
+            })
+        }
+
+        const changeQuestion = () => {
+            if (questionNbr < 10) {
+                questions[0].textContent = quiz.questions[questionNbr].question;
+                if (questionNbr+1<10) {
+                    number[0].textContent = '0'+(questionNbr+1);
+                }
+                else {
+                   number[0].textContent = questionNbr+1; 
+                }
+                
+                for (let i = 0; i < 4; i++) {
+                    const answerNb = i;
+                    answers[answerNb].textContent = quiz.questions[questionNbr].answers[answerNb].answer;
+                }
+            }
+            else {
+                giveResult();
+            }
+        }
+
+        const giveResult = () => {
+            questions[0].textContent = `Vous avez un score de ${score}/10`;
+            for (var i = 0; i < 4; i++) {
+                let replyDiv = document.getElementsByClassName('reply');
+                replyDiv[0].parentNode.removeChild(replyDiv[0]);
+                if (score === 0) {
+                    number[0].textContent = 'Avez vous pensé à lire les questions?';
+                } else if ( (score > 0) && (score < 5)) {
+                    number[0].textContent = 'Une petite révision s\'impose';
+                } else if ( (score > 5) && (score < 10)) {
+                    number[0].textContent = 'Jolie score';
+                } else if ( (score === 10)) {
+                    number[0].textContent = 'Votre maitrise du sujet est indiscutable !';
+                } else {
+                    number[0].textContent = 'Votre score est....bizarre !';
+                }
+            }
+        }
+    })
+        </script>
 
 </section>
 <footer>
