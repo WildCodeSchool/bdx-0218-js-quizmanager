@@ -1,10 +1,10 @@
 //Définition des variables de connection
 const mysql      = require('mysql');
 const connectionParameters = {
-  host     : 'localhost',
-  user     : 'root',
-  password : 'S3cr3t',
-  database : 'quizDb'
+  host     : 'sql7.freemysqlhosting.net',
+  user     : 'sql7233387',
+  password : 'GmTzKQuY9j',
+  database : 'sql7233387'
 }
 // TODO: a adapter aux paramètres de la base de donnée du fournisseur en production
 
@@ -87,7 +87,7 @@ getQuizInfos = (id,cb) => {
       } catch (err) {
         throw ('An error occur '+ err);
       } finally {
-          connection.end();        
+          connection.end();
       }
     });
   } catch (err) {
@@ -119,7 +119,7 @@ getLastQuiz = (cb) => {
       } catch (err) {
         throw ('An error occur '+ err);
       } finally {
-          connection.end();        
+          connection.end();
       }
     });
   } catch (err) {
@@ -169,13 +169,13 @@ setQuiz = (obj) => {
       } catch (err) {
         throw ('An error occur '+ err);
       } finally {
-        connection.end;      
+        connection.end;
       }
     })
   } catch (err) {
     throw ('An error occur '+ err);
   }
-} 
+}
 
 
 module.exports = getQuizInfos;
@@ -196,9 +196,9 @@ module.exports = getQuiz;
 
 
 let newQuiz =
-  
+
   {title: "France",category:"Histoire", questions:[
-  
+
   {question: "Apparition de l'homme", answers: [
     {answer:"10M avt JC", great:"0"},
     {answer:"5M avt JC", great:"0"},
@@ -287,7 +287,7 @@ router.get("/:id",(req,res)=>{
 
   getQuiz(1, function(err,data){
     res.render("mavue",{quiz});
-    
+
   });
 }
 
