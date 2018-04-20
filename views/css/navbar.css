@@ -91,9 +91,9 @@ header {
   cursor:pointer;
   outline:none;
   z-index:10000000000000;
-  color: yellow;
+  color: red;
 }
-.menu{z-index:1000000; font-weight:bold; font-size:0.8em; width:100%; background:#fffd54ff;  position:absolute; text-align:center; font-size:12px; height : 100%;}
+.menu{ top: 0px;z-index:1000000; font-weight:bold; font-size:0.8em; width:100%; background:#fffd54ff;  position:absolute; text-align:center; font-size:12px; height : 100%;}
 .menu ul {margin-top: 13%; padding: 0; list-style-type: none; list-style-image: none;margin-left: 0px;}
 .menu li {font-family: 'Dosis', sans-serif; display: block;   padding:15px 0 15px 0;}
 .menu li:hover{display: block; background:#fffd54ff; padding:15px 0 15px 0;}
