@@ -2,7 +2,7 @@
 // load the things we need
 var express = require('express');
 var app = express();
-var getQuizInfos = require('./controlers/js/mysql')
+var readQuiz = require('./controlers/js/sqlRead')
 
 var varFloat = "";
 
@@ -37,7 +37,7 @@ app.get('/jouer', function(req, res) {
 // page question
 
 app.get('/questionspage/:id(\\d+)',function(req,res){
-    getQuizInfos(req.params.id, function(data) {
+    readQuiz.getQuiz(req.params.id, function(data) {
 	   res.render('pages/questionspage', {quiz: data});
     });
 });
@@ -63,13 +63,14 @@ app.get('/searchquiz', function(req, res) {
     res.render('pages/searchquiz');
 });
 
+// play quiz page
 app.get('/:id(\\d+)',(req,res)=> {
-  getQuizInfos(req.params.id, function(data) {
+    readQuiz.getQuizInfos(req.params.id, function(data) {
     res.render('pages/jouer',{id: data.id, title:data.title, category:data.category});  
   });
 });
 
-// CREER page
+// create quiz page
 app.get('/creationQuizz', function(req, res) {
     res.render('pages/creationQuizz', {varFloat:"floatt"});
 });
