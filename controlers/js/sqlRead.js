@@ -56,68 +56,68 @@ getQuiz = (id, cb) => {
 };
 
 getQuizInfos = (id,cb) => {
-  try {
-    let quizInfos = {id:'',title:'',category:''};
-    const connection = mysql.createConnection(connectionParameters);
-    connection.connect((err) => {
-      try {
-        if (err) {
-          throw ('connection with the database failed '+err);
-        } else {
-        }
-        connection.query(
-          `SELECT id, title, category FROM Quiz WHERE id=${id};`, (err, rows) => {
-              if (err) {
-                throw err;
-              } else {
-                 quizInfos.id=rows[0].id;
-                 quizInfos.title=rows[0].title;
-                 quizInfos.category=rows[0].category;
-              }
-            cb(quizInfos);
+    try {
+        let quizInfos = {id:'',title:'',category:''};
+        const connection = mysql.createConnection(connectionParameters);
+        connection.connect((err) => {
+            try {
+            if (err) {
+                throw ('connection with the database failed '+err);
+            } else {
+            }
+            connection.query(
+                `SELECT id, title, category FROM Quiz WHERE id=${id};`, (err, rows) => {
+                    if (err) {
+                    throw err;
+                    } else {
+                    quizInfos.id=rows[0].id;
+                    quizInfos.title=rows[0].title;
+                    quizInfos.category=rows[0].category;
+                    }
+                cb(quizInfos);
+            });
+            } catch (err) {
+            throw ('An error occur '+ err);
+            } finally {
+                connection.end();
+            }
         });
-      } catch (err) {
-        throw ('An error occur '+ err);
-      } finally {
-          connection.end();        
-      }
-    });
-  } catch (err) {
-    throw ('An error occur: '+err);
-  }
-};
+    } catch (err) {
+      throw ('An error occur: '+err);
+    }
+}
 
 getLastQuiz = (cb) => {
-  try {
-    let lastQuiz = [];
-    const connection = mysql.createConnection(connectionParameters);
-    connection.connect((err) => {
-      try {
-        if (err) {
-          throw ('connection with the database failed '+err);
-        } else {
-          connection.query(
-            `SELECT id, title, category FROM Quiz WHERE checked=1 ORDER BY date DESC LIMIT 4`, (err, rows) => {
-                if (err) {
-                  throw err;
-                } else {
-                    for (var i = 0; i < rows.length; i++) {
-                      lastQuiz.push({id:rows[i].id, title:rows[i].title, category: rows[i].category});
+    try {
+        let lastQuiz = [];
+        const connection = mysql.createConnection(connectionParameters);
+        connection.connect((err) => {
+            try {
+            if (err) {
+                throw ('connection with the database failed '+err);
+            } else {
+            }
+            connection.query(
+                `SELECT id, title, category FROM Quiz WHERE checked=1 ORDER BY date DESC LIMIT 4`, (err, rows) => {
+                    if (err) {
+                    throw err;
+                    } else {
+                        for (var i = 0; i < rows.length; i++) {
+                        lastQuiz.push({id:rows[i].id, title:rows[i].title, category: rows[i].category});
+                        }
                     }
-                }
-              cb(lastQuiz);
-          });
-        }
-      } catch (err) {
-        throw ('An error occur '+ err);
-      } finally {
-          connection.end();        
-      }
-    });
-  } catch (err) {
-    throw ('An error occur: '+err);
-  }
-};
+                    cb(lastQuiz);
+                });
+            } catch (err) {
+                throw ('An error occur '+ err);
+            } finally {
+                connection.end();
+            }
+        });
+    } catch (err) {
+      throw ('An error occur: '+err);
+    }
+}
 
 
 
