@@ -1,4 +1,6 @@
-
+.partie_creer2 input {
+  width: 90%;
+}
 
 .titreCreer {
   	margin: 1rem auto;
@@ -89,17 +91,26 @@
 	border: 0.3rem solid red;
 }
 
-.textOui {
+#textOui {
   color : yellow;
   font-weight: bold;
   text-decoration: none;
 
 }
 
-.textOui:hover{
+#textOui:hover{
   color: red;
 }
 
+/* Préparation des éléments à afficher, masquer en Js */
+
+#quizAnswers, .move {
+  display: none;
+}
+
+
+
+/* Fin des éléments pour le Js
 
 /* PARTIE GAUCHE QUIZZY*/
 
