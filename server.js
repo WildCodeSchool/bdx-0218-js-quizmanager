@@ -3,10 +3,11 @@
 
 var express = require('express');
 var app = express();
-var getQuizInfos = require('./controlers/js/mysql')
 var nodemailer = require('nodemailer');
 var bodyParser = require('body-parser');
+var readQuiz = require('./controlers/js/sqlRead')
 var varFloat = "";
+
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 var router = express.Router();
@@ -43,7 +44,7 @@ app.get('/jouer', function(req, res) {
 // page question
 
 app.get('/questionspage/:id(\\d+)',function(req,res){
-    getQuizInfos(req.params.id, function(data) {
+    readQuiz.getQuiz(req.params.id, function(data) {
 	   res.render('pages/questionspage', {quiz: data});
     });
 });
@@ -69,13 +70,14 @@ app.get('/searchquiz', function(req, res) {
     res.render('pages/searchquiz');
 });
 
+// play quiz page
 app.get('/:id(\\d+)',(req,res)=> {
-  getQuizInfos(req.params.id, function(data) {
-    res.render('pages/jouer',{id: data.id, title:data.title, category:data.category});
+    readQuiz.getQuizInfos(req.params.id, function(data) {
+    res.render('pages/jouer',{id: data.id, title:data.title, category:data.category});  
   });
 });
 
-// CREER page
+// create quiz page
 app.get('/creationQuizz', function(req, res) {
     res.render('pages/creationQuizz', {varFloat:"floatt"});
 });
