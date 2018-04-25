@@ -1,10 +1,17 @@
 // server.js
 // load the things we need
+
 var express = require('express');
 var app = express();
+var nodemailer = require('nodemailer');
+var bodyParser = require('body-parser');
 var readQuiz = require('./controlers/js/sqlRead')
-
 var varFloat = "";
+
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+var router = express.Router();
+
 
 app.use('/views', express.static('views'));
 
@@ -86,6 +93,34 @@ app.get('/finquizz', function(req, res) {
 app.get('/bravo', function(req, res) {
     res.render('pages/FinQuizz', {varFloat:"floatt"});
 });
+
+
+//ENVOI EMAIL//
+app.post('/sendMail', function (req, res) {
+  let smtpTransport = nodemailer.createTransport({
+  service: "Gmail",
+  auth: {
+  user: "wildtrashmailing@gmail.com",
+  pass: "Ploppyplop01"
+  }
+  });
+
+  smtpTransport.sendMail({
+  from: req.body.email,
+  to: "wildtrashmailing@gmail.com",
+  subject: 'Vous avez reçu un message de ' + req.body.last_name + ' ' + req.body.first_name,
+  text: req.body.message,
+  html: '<b>' + req.body.message + '</b>'
+  }, (error, response) => {
+  if(error){
+  console.log(error);
+  }else{
+  console.log("Message sent");
+  }
+  });
+  res.redirect('/contact')
+});
+// FIN ENVOI EMAIL//
 
 app.listen(3000);
 console.log('3000 have to be changed in 80 for prod');
