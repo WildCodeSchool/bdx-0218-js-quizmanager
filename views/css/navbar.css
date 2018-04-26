@@ -132,12 +132,14 @@ header {
 /*PASSAGE NAV DESKTOP-MOBILE*/
 @media (max-width: 968px) {
       .navDesktop{
+        display: none;
           visibility: hidden;
           }
 }
 
 @media (min-width: 968px) {
         .cross , .hamburger , .navBurger{
+          display: none;
           visibility: hidden;
                   }
 }
