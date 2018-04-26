@@ -34,51 +34,104 @@ const great4 = document.getElementById('great4');
 
 begin.addEventListener('click', function(e) {
     e.preventDefault();
-    quizAnswers.style.display = 'block';
-    next.style.display = 'block'; 
-    
-    begin.style.display = "none";
-    document.getElementsByClassName('cadreQuestion')[0].style.display = "none";
-    newQuiz.title = document.getElementById('titre').value;
-    newQuiz.category = document.getElementById('category').value;
-    quizyTalk.textContent = 'Pensez à cocher la bonne réponse';
-    getQuestions(index);
+    if (newQuiz.title = document.getElementById('titre').value != '') {
+        quizAnswers.style.display = 'block';
+        next.style.display = 'block'; 
+        
+        begin.style.display = "none";
+        document.getElementsByClassName('cadreQuestion')[0].style.display = "none";
+        newQuiz.title = document.getElementById('titre').value;
+        newQuiz.category = document.getElementById('category').value;
+        quizyTalk.textContent = 'remplissez votre question et ses réponses';
+        getQuestions(index);
+    }
+    quizyTalk.textContent = 'Vous devez choisir un titre pour votre quiz';
 });
 
 past.addEventListener('click', function(e){
     e.preventDefault();
-    if ((index>0) && (index<10)) {
-        addQuestion(index);
-        index --;
-        getQuestions(index);
-        checkIndex(index);
-    } else if (index===10) {
-        quizAnswers.style.display = "block";
-        index --;
-        getQuestions(index);
-        checkIndex(index);
-        quizyTalk.textContent = 'Pensez à cocher la bonne réponse';
-        next.textContent = "NEXT";
+    if (checkCompleted(index)) {
+        if ((index>0) && (index<10)) {
+            addQuestion(index);
+            index --;
+            getQuestions(index);
+            checkIndex(index);
+            prefill(index);
+        } else if (index===10) {
+            quizAnswers.style.display = "block";
+            index --;
+            getQuestions(index);
+            checkIndex(index);
+            quizyTalk.textContent = 'remplissez votre question et ses réponses';
+            next.textContent = "NEXT";
+        }
     }
 })
 
 next.addEventListener('click', function(e){
     e.preventDefault();
-    if (index<9) {
-        addQuestion(index);
-        index ++;
-        getQuestions(index);
-        checkIndex(index);
-    } else if (index ===9) {
-        addQuestion(index);
-        index ++;
-        endOfCreation();
-    } else if (index>9) {
-        // setQuiz(quiz, function(data){
-//     console.log('job done, new quiz id :'+ data);
-// });
+    if (checkCompleted(index)) {
+        if (index<9) {
+            addQuestion(index);
+            index ++;
+            getQuestions(index);
+            checkIndex(index);
+            prefill(index);
+        } else if (index ===9) {
+            addQuestion(index);
+            index ++;
+            endOfCreation();
+        } else if (index>9) {
+            ajaxPost("http://localhost:3000/creationQuiz", newQuiz, function (answer) {
+                let parsedAnswer = JSON.parse(answer);
+                quizyTalk.textContent = "Merci";
+                setTimeout(function () {
+                    quizyTalk.textContent = "Votre quiz est en ligne avec l'identifiant N°"+parsedAnswer.answer;
+                }, 1500);
+             }, true);
+        }
     }
 })
+
+const checkCompleted = (index) => {
+    if ( question.value === "") {
+        quizyTalk.textContent = 'Pensez à compléter la question';
+        return false;
+    } else if ((reponse1.value === "") || (reponse2.value === "") || (reponse3.value === "") || (reponse4.value === "")) {
+        quizyTalk.textContent = 'Pensez à compléter les réponses';
+        return false;
+    } else if ((great1.checked === false) && (great2.checked === false) && (great3.checked === false) && (great4.checked === false)) {
+        quizyTalk.textContent = 'Pensez à cocher la bonne réponse';
+        return false;
+    }
+        return true;
+}
+
+const prefill = (index)  => {
+    if (newQuiz.questions[index] === undefined) {
+
+        question.value = "";
+        reponse1.value = "";
+        reponse2.value = "";
+        reponse3.value = "";
+        reponse4.value = "";
+        great1.checked = false;
+        great2.checked = false;
+        great3.checked = false; 
+        great4.checked = false; 
+    } else {
+        question.value = newQuiz.questions[index].question;
+        reponse1.value = newQuiz.questions[index].answers[0].answer;
+        reponse2.value = newQuiz.questions[index].answers[1].answer;
+        reponse3.value = newQuiz.questions[index].answers[2].answer;
+        reponse4.value = newQuiz.questions[index].answers[3].answer;
+        great1.checked = newQuiz.questions[index].answers[0].great;
+        great2.checked = newQuiz.questions[index].answers[1].great;
+        great3.checked = newQuiz.questions[index].answers[2].great;
+        great4.checked = newQuiz.questions[index].answers[3].great;
+    }
+    quizyTalk.textContent = 'remplissez votre question et ses réponses';
+}
 
 const endOfCreation = () => {
     next.textContent = "ENREGISTRER";
@@ -103,7 +156,6 @@ const addQuestion = (index) => {
     questions.answers.push(answer1, answer2, answer3, answer4);
     questions.question = question.value;
     newQuiz.questions[index] = questions;
-    console.log(JSON.stringify(newQuiz,0,2))
     questions = {
         question:'',
         answers: []
@@ -118,4 +170,3 @@ const addQuestion = (index) => {
 const getQuestions = (index) => {
     numero.textContent ='Question N°'+(index+1);
 }
-
