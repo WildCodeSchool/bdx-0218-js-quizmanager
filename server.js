@@ -33,8 +33,8 @@ app.get('/admin', function(req, res) {
 });
 
 
-app.get('/jouer:id(\\d+)', function(req, res) {
-    readQuiz.getLastQuiz(req.params.id, function (data){
+app.get('/jouer', function(req, res) {
+    readQuiz.getListQuiz(function (data){
     res.render('pages/jouer',{titre:data});
 })
 });
