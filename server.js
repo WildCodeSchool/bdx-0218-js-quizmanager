@@ -5,23 +5,21 @@ var express = require('express');
 var app = express();
 var nodemailer = require('nodemailer');
 var bodyParser = require('body-parser');
-var readQuiz = require('./controlers/js/sqlRead')
+var readQuiz = require('./controlers/js/sqlRead');
+var createQuiz = require('./controlers/js/sqlCreate');
 var varFloat = "";
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 var router = express.Router();
 
-
+app.use(express.json()) 
 app.use('/views', express.static('views'));
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
-// use res.render to load up an ejs view file
-
 // index page
-
 app.get('/', function(req, res) {
     res.render('pages/index');
 });
@@ -40,7 +38,6 @@ app.get('/jouer', function(req, res) {
 });
 
 // page question
-
 app.get('/questionspage/:id(\\d+)',function(req,res){
     readQuiz.getQuiz(req.params.id, function(data) {
 	   res.render('pages/questionspage', {quiz: data});
@@ -53,7 +50,6 @@ app.get('/faq', function(req, res) {
 });
 
 // acceuil page
-
 app.get('/accueil', function(req, res) {
     readQuiz.getLastQuiz(function (data){
     res.render('pages/accueil',{titre:data});
@@ -77,8 +73,14 @@ app.get('/:id(\\d+)',(req,res)=> {
 });
 
 // create quiz page
-app.get('/creationQuizz', function(req, res) {
-    res.render('pages/creationQuizz', {varFloat:"floatt"});
+app.get('/creationQuiz', function(req, res) {
+    res.render('pages/creationQuiz', {varFloat:"floatt"});
+});
+
+app.post('/creationQuiz', function(req,res) {
+    createQuiz.setQuiz(req.body, function(answer){
+        res.send({answer: answer});
+    });
 });
 
 app.get('/creation', function(req, res) {
