@@ -130,15 +130,15 @@ module.exports = {
 
 // getLastQuiz(function(data) {
 //    console.log(JSON.stringify(data,0,2));
-//   });
+//    });
 
 // getQuiz(1,function(data) {
-//    console.log(JSON.stringify(data,0,2));
-//   });
+//   console.log(JSON.stringify(data,0,2));
+//  });
 
-// getQuizInfos(1,function(data) {
-//    console.log(JSON.stringify(data,0,2));
-//   });
+getQuizInfos(1,function(data) {
+   console.log(JSON.stringify(data,0,2));
+  });
 
 
 /* Pour appeler la fonction getQuiz, il faut mettre un callback qui retournera l'objet voulu comme dans l'exemple ci dessous

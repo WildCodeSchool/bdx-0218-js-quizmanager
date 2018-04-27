@@ -26,19 +26,17 @@ app.get('/', function(req, res) {
     res.render('pages/index');
 });
 
-// play page
-app.get('/jouer', function(req, res) {
-    res.render('pages/jouer');
-});
 
 // about page
 app.get('/admin', function(req, res) {
     res.render('pages/admin');
 });
 
-// play page
-app.get('/jouer', function(req, res) {
-    res.render('pages/jouer');
+
+app.get('/jouer:id(\\d+)', function(req, res) {
+    readQuiz.getLastQuiz(req.params.id, function (data){
+    res.render('pages/jouer',{titre:data});
+})
 });
 
 // page question
@@ -57,9 +55,10 @@ app.get('/faq', function(req, res) {
 // acceuil page
 
 app.get('/accueil', function(req, res) {
-    res.render('pages/accueil');
+    readQuiz.getLastQuiz(function (data){
+    res.render('pages/accueil',{titre:data});
+})
 });
-
 // formulaire de contact
 app.get('/contact', function(req, res) {
     res.render('pages/contact');
@@ -94,6 +93,13 @@ app.get('/bravo', function(req, res) {
     res.render('pages/FinQuizz', {varFloat:"floatt"});
 });
 
+//MODIFIER QUIZ
+
+app.get('/modifierQuiz/:id(\\d+)',function(req,res){
+    readQuiz.getQuiz(req.params.id, function(data) {
+     res.render('pages/modifierQuiz', {quiz: data});
+    });
+});
 
 //ENVOI EMAIL//
 app.post('/sendMail', function (req, res) {

@@ -72,7 +72,7 @@
 																	<a href="/questionspage/1" />
 																<img src="/views/img/red-sante.png" src="sante icon">
 																<div class="col redrectangle">
-																<h2>SANTE</h2>
+																<h2><%=titre[0].category%></h2>
 																</div>
 															</div>
 													</div>
@@ -82,7 +82,7 @@
 																	<a href="/questionspage/1" />
 															<img src="/views/img/red-burger.png" src="burger icon">
 																	<div class="col redrectangle">
-																	<h2>BURGER</h2>
+																	<h2><%=titre[1].category%></h2>
 																	</div>
 															</div>
 													</div>
@@ -94,7 +94,7 @@
 
 															<img src="/views/img/red-chimie.png" src="science icon">
 																	<div class="col redrectangle">
-																	<h2>MESURE</h2></a>
+																	<h2></h2></a>
 																	</div>
 															</div>
 													</div>
@@ -104,7 +104,7 @@
 																	<a href="/questionspage/1" />
 															<img src="/views/img/red-ski.png" src="ski icon">
 																	<div class="col redrectangle">
-																	<h2>SKI</h2>
+																	<h2></h2>
 																	</div>
 															</div>
 													</div>
@@ -139,5 +139,12 @@
     <% include ../partials/footer %>
 </footer>
 <% include ../partials/scripts %>
+
+<script type="text/javascript">
+let titre = <%- JSON.stringify(titre,0,2) %>
+     
+    </script>
 </body>
+
+
 </html>
