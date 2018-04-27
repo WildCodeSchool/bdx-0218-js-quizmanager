@@ -85,8 +85,12 @@ next.addEventListener('click', function(e){
             ajaxPost("http://localhost:3000/creationQuiz", newQuiz, function (answer) {
                 let parsedAnswer = JSON.parse(answer);
                 quizyTalk.textContent = "Merci";
+                next.style.display = 'none';
+                past.style.display = 'none';
+                addReturn();
                 setTimeout(function () {
                     quizyTalk.textContent = "Votre quiz est en ligne avec l'identifiant N°"+parsedAnswer.answer;
+                    goPlay(parsedAnswer.answer)
                 }, 1500);
              }, true);
         }
@@ -169,4 +173,23 @@ const addQuestion = (index) => {
 
 const getQuestions = (index) => {
     numero.textContent ='Question N°'+(index+1);
+}
+
+const addReturn = () => {
+    let newDiv = document.createElement("a");
+        newDiv.setAttribute("class", "endBox");
+    let newContent = document.createTextNode("Retour à l'Accueil");
+        newDiv.appendChild(newContent);
+        newDiv.setAttribute("href", "/accueil");
+    const here = document.getElementById('returnButton');
+        here.appendChild(newDiv);
+}
+
+const goPlay = (idQuiz) => {
+    let newDiv = document.createElement("a");
+        newDiv.setAttribute("class", "endBox");
+        newDiv.textContent = "Testez votre quiz";
+        newDiv.setAttribute("href", "/questionspage/"+idQuiz);
+    const here = document.getElementById('tryQuiz');
+        here.appendChild(newDiv);
 }
