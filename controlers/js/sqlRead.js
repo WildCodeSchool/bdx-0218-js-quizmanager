@@ -119,22 +119,60 @@ getLastQuiz = (cb) => {
     }
 }
 
+getListQuiz = (cb) => {
+    try {
+        let listQuiz = [];
+        const connection = mysql.createConnection(connectionParameters);
+        connection.connect((err) => {
+            try {
+            if (err) {
+                throw ('connection with the database failed '+err);
+            } else {
+            }
+            connection.query(
+                `SELECT id, title, category FROM Quiz WHERE checked=1 ORDER BY date DESC LIMIT 12`, (err, rows) => {
+                    if (err) {
+                    throw err;
+                    } else {
+                        for (var i = 0; i < rows.length; i++) {
+                        listQuiz.push({id:rows[i].id, title:rows[i].title, category: rows[i].category});
+                        }
+                    }
+                    cb(listQuiz);
+                });
+            } catch (err) {
+                throw ('An error occur '+ err);
+            } finally {
+                connection.end();
+            }
+        });
+    } catch (err) {
+      throw ('An error occur: '+err);
+    }
+}
+
+
 
 
 
 module.exports = {
   getQuizInfos,
   getLastQuiz,
-  getQuiz
+  getQuiz,
+  getListQuiz
 };
 
 // getLastQuiz(function(data) {
 //    console.log(JSON.stringify(data,0,2));
-//   });
+//    });
+
+getListQuiz(function(data) {
+   console.log(JSON.stringify(data,0,2));
+   });
 
 // getQuiz(1,function(data) {
-//    console.log(JSON.stringify(data,0,2));
-//   });
+//   console.log(JSON.stringify(data,0,2));
+//  });
 
 // getQuizInfos(1,function(data) {
 //    console.log(JSON.stringify(data,0,2));
