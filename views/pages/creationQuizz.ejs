@@ -11,6 +11,30 @@
 
 <div class="col partie_creer2">
   <div class="quizTitle">
+      <div class="row">
+          <div class="col">
+            <h1 id="numeroQuestion" class="titreCreer">PARTIE CREATION D'UN QUIZ
+            </h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="cadreQuestion">
+              <input type="text" name="titre" placeholder="Inscipt l'intitulé de ton quizz."  id="titre">
+              <br /> et choisi une catégorie:
+              <select id="category">
+                <option value="science">Science</option>
+                <option value="cinema">Cinéma</option>
+                <option value="musique">Musique</option>
+                <option value="sante">Santé</option>
+                <option value="sport">Sport</option>
+                <option value="amour">Amour</option>
+                <option value="societe">Société</option>
+                <option value="divers">Divers</option>
+              </select> 
+            </div>
+          </div>
+        </div>
   </div>
   
   <div id="quizAnswers">
@@ -59,10 +83,10 @@
   
 
   <div class="row boutonsCreationAide">
-    <div class="col">
+    <div class="col" id="returnButton">
       <h2 class="oui move" id="past" >PAST</h2>
     </div>
-    <div class="col">
+    <div class="col" id="tryQuiz">
       <h2 class="oui move" id="next">NEXT</h2>
     </div>
   </div>
@@ -95,6 +119,7 @@
     <% include ../partials/footer %>
   </footer>
   <% include ../partials/scripts %>
+  <script src="/views/js/ajax.js"></script>
   <script src="/views/js/createQuiz.js"></script>
 </body>
 </html>
