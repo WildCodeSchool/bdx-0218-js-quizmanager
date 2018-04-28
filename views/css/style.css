@@ -41,9 +41,9 @@ h3{
 
 .bouton_de_droite, .bouton_de_gauche  {
 	margin: 2rem;
-	padding: 1rem;
+  padding: 2rem;
 	width: auto;
-	max-width: 10rem;
+	max-width: 25rem;
 	position: center;
 	text-align: center;
 	background-color: blue;
@@ -82,7 +82,7 @@ h3{
 .text_appel
 {
 	 margin: 3rem;
-	 justify-content: space-between;
+   justify-content: space-between;
 }
 
 .buttons
@@ -145,7 +145,7 @@ justify-content: space-between;
 .info_footer {
 	margin-top : 25px;
 	text-align: center;
-	color : red;
+	color : yellow;
 	font-size: 1rem;
 	padding: 1rem;
 }
@@ -303,7 +303,7 @@ input[type=submit]:hover{
 
 }
 textarea {
-    border: 0.3rem solid red;
+    border: 0.3rem solid blue;
     margin: 0.25rem 0 0.25rem 0;
     flex: 1;
 		font-weight: bold;
@@ -333,7 +333,7 @@ textarea {
 }
 
 .message::-webkit-input-placeholder {  /*Chrome/Opera/Safari */
- color: red;
+ color: yellow;
  font-size :1.7rem;
  padding: 1rem;
  background-color: blue;
@@ -398,23 +398,22 @@ input{
 
 .whitesquare {
   background-color: blue;
-  border: 0.3rem yellow outset;
-  margin: 1.1rem;
-  width: 12rem;
+  border: 0.5rem yellow outset;
+  width: 13rem;
   height: 13rem;
-	margin:auto;
+	margin:1rem;
 }
 
 .whitesquare:hover{
-	border: 0.3rem yellow inset;
+	border: 0.5rem yellow inset;
 }
 
 /* Les rectangles oranges avec le titres des quizs*/
 
 .redrectangle {
   background-color: yellow;
-  height: 4rem;
-  width: 12rem;
+  height: 4.5rem;
+  width: 13rem;
 }
 
 .whiteframe{
