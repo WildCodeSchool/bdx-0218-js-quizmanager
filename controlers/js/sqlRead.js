@@ -151,7 +151,38 @@ getListQuiz = (cb) => {
     }
 }
 
-
+getFaq = (cb) => {
+    try {
+        let faq = {id:'',question:'',reponse:''};
+        let faqArr = [];
+        const connection = mysql.createConnection(connectionParameters);
+        connection.connect((err) => {
+            try {
+                if (err) {
+                    throw ('connection with the database failed '+err);
+                } else {
+                    connection.query(
+                        `SELECT id, question, reponse FROM faq;`, (err, rows) => {
+                            if (err) {
+                            throw err;
+                            } else {
+                                for (let i=0; i<rows.length; i++) {
+                                    faqArr.push({id:rows[i].id, question:rows[i].question, reponse:rows[i].reponse});
+                                }
+                            }
+                        cb(faqArr);
+                    });
+                }
+            } catch (err) {
+            throw ('An error occur '+ err);
+            } finally {
+                connection.end();
+            }
+        });
+    } catch (err) {
+      throw ('An error occur: '+err);
+    }
+}
 
 
 
@@ -159,16 +190,17 @@ module.exports = {
   getQuizInfos,
   getLastQuiz,
   getQuiz,
-  getListQuiz
+  getListQuiz,
+  getFaq
 };
 
 // getLastQuiz(function(data) {
 //    console.log(JSON.stringify(data,0,2));
 //    });
 
-getListQuiz(function(data) {
-   console.log(JSON.stringify(data,0,2));
-   });
+// getListQuiz(function(data) {
+//    console.log(JSON.stringify(data,0,2));
+//    });
 
 // getQuiz(1,function(data) {
 //   console.log(JSON.stringify(data,0,2));

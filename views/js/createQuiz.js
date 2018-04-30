@@ -82,11 +82,11 @@ next.addEventListener('click', function(e){
             index ++;
             endOfCreation();
         } else if (index>9) {
+                next.style.display = 'none';
+                past.style.display = 'none';
             ajaxPost("http://localhost:3000/creationQuiz", newQuiz, function (answer) {
                 let parsedAnswer = JSON.parse(answer);
                 quizyTalk.textContent = "Merci";
-                next.style.display = 'none';
-                past.style.display = 'none';
                 addReturn();
                 setTimeout(function () {
                     quizyTalk.textContent = "Votre quiz est en ligne avec l'identifiant N°"+parsedAnswer.answer;
