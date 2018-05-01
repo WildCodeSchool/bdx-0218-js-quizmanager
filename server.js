@@ -85,10 +85,27 @@ app.post('/faqModify', function(req, res) {
 
 // acceuil page
 app.get('/accueil', function(req, res) {
-    readQuiz.getLastQuiz(function (data){
-        res.render('pages/accueil', {titre:data});
+    readQuiz.getLastQuiz(function (dataQuiz){
+        readQuiz.getAccueil(function (dataText){
+        res.render('pages/accueil', {titre:dataQuiz, text: dataText});
+        })
     })
 });
+
+app.get('/adminAccueil', function(req, res) {
+    readQuiz.getAccueil(function (dataText) {
+        res.render('pages/adminAccueil', {varFloat:"floatt", text: dataText});
+    })
+});
+
+app.post('/accueilModify', function(req, res) {
+    updateQuiz.updateAccueil(req.body.text1, req.body.text2, req.body.id, (answer) => {
+        readQuiz.getAccueil(function (dataText) {
+            res.render('pages/adminAccueil', {varFloat:"floatt", update: answer, text: dataText});
+        });
+    });
+});
+
 // formulaire de contact
 app.get('/contact', function(req, res) {
     res.render('pages/contact');

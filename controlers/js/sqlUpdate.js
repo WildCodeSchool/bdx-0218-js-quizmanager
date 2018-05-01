@@ -24,6 +24,29 @@ updateFaq = (question,reponse,id,cb) => {
   }
 };
 
+updateAccueil = (text1,text2,id,cb) => {
+  try {
+      const connection = mysql.createConnection(connectionParameters);
+      try {
+          connection.connect((err) => {
+              try {
+                  connection.query(
+                    'UPDATE accueil SET text1 = ?, text2 = ? WHERE id = ?',[text1, text2, id], (err, results) => {
+                              if (err) {throw err;}
+                              else  {cb('update succeed!');}
+                  });
+              } catch (err) {
+                       throw ('An error occur during the data update: '+err);
+              }        
+          });
+      } catch (err) {
+        throw ('An error occur during the connection process: '+ err);
+      }
+  } catch (err) { 
+      throw ('An error occur during the connection creation process: '+ err);
+  }
+};
+
 validateQuiz = (id,obj,cb) => {
     try {
         const connection = mysql.createConnection(connectionParameters);
@@ -31,8 +54,7 @@ validateQuiz = (id,obj,cb) => {
             connection.connect((err) => {
                 try {
                     connection.query(
-                      'UPDATE Quiz SET title = ?, category = ?, checked = ? WHERE id = ?',
-                      [obj.title,obj.category,obj.checked,id], (err, results, fields) => {
+                      'UPDATE Quiz SET title = ?, category = ?, checked = ? WHERE id = ?', [obj.title,obj.category,obj.checked,id], (err, results) => {
                                 if (err) throw err;
                                 cb('update succeed!');
                               });
@@ -279,5 +301,6 @@ let test =
 
 module.exports = {
   validateQuiz,
-  updateFaq
+  updateFaq,
+  updateAccueil
 };
