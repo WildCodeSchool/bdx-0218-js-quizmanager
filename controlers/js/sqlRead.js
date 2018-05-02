@@ -151,20 +151,86 @@ getListQuiz = (cb) => {
     }
 }
 
+getFaq = (cb) => {
+    try {
+        let faqArr = [];
+        const connection = mysql.createConnection(connectionParameters);
+        connection.connect((err) => {
+            try {
+                if (err) {
+                    throw ('connection with the database failed '+err);
+                } else {
+                    connection.query(
+                        `SELECT id, question, reponse FROM faq;`, (err, rows) => {
+                            if (err) {
+                            throw err;
+                            } else {
+                                for (let i=0; i<rows.length; i++) {
+                                    faqArr.push({id:rows[i].id, question:rows[i].question, reponse:rows[i].reponse});
+                                }
+                            }
+                        cb(faqArr);
+                    });
+                }
+            } catch (err) {
+            throw ('An error occur '+ err);
+            } finally {
+                connection.end();
+            }
+        });
+    } catch (err) {
+      throw ('An error occur: '+err);
+    }
+}
 
-
-
+getAccueil = (cb) => {
+    try {
+        let textArr = [];
+        const connection = mysql.createConnection(connectionParameters);
+        connection.connect((err) => {
+            try {
+                if (err) {
+                    throw ('connection with the database failed '+err);
+                } else {
+                    connection.query(
+                        `SELECT id, text1, text2 FROM accueil;`, (err, rows) => {
+                            if (err) {
+                            throw err;
+                            } else {
+                                for (let i=0; i<rows.length; i++) {
+                                    textArr.push({id:rows[i].id, text1:rows[i].text1, text2:rows[i].text2});
+                                }
+                            }
+                        cb(textArr);
+                    });
+                }
+            } catch (err) {
+            throw ('An error occur '+ err);
+            } finally {
+                connection.end();
+            }
+        });
+    } catch (err) {
+      throw ('An error occur: '+err);
+    }
+}
 
 module.exports = {
   getQuizInfos,
   getLastQuiz,
   getQuiz,
-  getListQuiz
+  getListQuiz,
+  getFaq,
+  getAccueil
 };
 
-getLastQuiz(function(data) {
-   console.log(JSON.stringify(data,0,2));
-   });
+// getLastQuiz(function(data) {
+//    console.log(JSON.stringify(data,0,2));
+//    });
+
+// getListQuiz(function(data) {
+//    console.log(JSON.stringify(data,0,2));
+//    });
 
 // getListQuiz(function(data) {
 //    console.log(JSON.stringify(data,0,2));
@@ -191,7 +257,7 @@ router.get("/:id",(req,res)=>{
 
   getQuiz(1, function(err,data){
     res.render("mavue",{quiz});
-    
+
   });
 }
 

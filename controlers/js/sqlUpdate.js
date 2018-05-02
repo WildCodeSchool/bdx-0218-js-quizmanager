@@ -1,7 +1,51 @@
-import { builtinModules } from 'module';
-
 const mysql = require('mysql');
 const connectionParameters = require('./sqlParameters');
+
+updateFaq = (question,reponse,id,cb) => {
+  try {
+      const connection = mysql.createConnection(connectionParameters);
+      try {
+          connection.connect((err) => {
+              try {
+                  connection.query(
+                    'UPDATE faq SET question = ?, reponse = ? WHERE id = ?',[question, reponse, id], (err, results) => {
+                              if (err) {throw err;}
+                              else  {cb('update succeed!');}
+                  });
+              } catch (err) {
+                       throw ('An error occur during the data update: '+err);
+              }
+          });
+      } catch (err) {
+        throw ('An error occur during the connection process: '+ err);
+      }
+  } catch (err) {
+      throw ('An error occur during the connection creation process: '+ err);
+  }
+};
+
+updateAccueil = (text1,text2,id,cb) => {
+  try {
+      const connection = mysql.createConnection(connectionParameters);
+      try {
+          connection.connect((err) => {
+              try {
+                  connection.query(
+                    'UPDATE accueil SET text1 = ?, text2 = ? WHERE id = ?',[text1, text2, id], (err, results) => {
+                              if (err) {throw err;}
+                              else  {cb('update succeed!');}
+                  });
+              } catch (err) {
+                       throw ('An error occur during the data update: '+err);
+              }
+          });
+      } catch (err) {
+        throw ('An error occur during the connection process: '+ err);
+      }
+  } catch (err) {
+      throw ('An error occur during the connection creation process: '+ err);
+  }
+};
 
 validateQuiz = (id,obj,cb) => {
     try {
@@ -9,19 +53,14 @@ validateQuiz = (id,obj,cb) => {
         try {
             connection.connect((err) => {
                 try {
-                    connection.query('
-                        UPDATE Quiz
-                            SET title = ?,
-                            category = ?,
-                            checked = ?,
-                            WHERE id = ?
-                            ',[obj.title,obj.category,obj.checked,id], function (error, results, fields) {
-                                if (error) throw error;
+                    connection.query(
+                      'UPDATE Quiz SET title = ?, category = ?, checked = ? WHERE id = ?', [obj.title,obj.category,obj.checked,id], (err, results) => {
+                                if (err) throw err;
                                 cb('update succeed!');
                               });
-                    } catch {
+                    } catch(err) {
                          throw ('An error occur during the data update: '+err);
-                }        
+                }
             });
         } catch (err) {
             throw ('An error occur during the connection process: '+ err);
@@ -32,7 +71,7 @@ validateQuiz = (id,obj,cb) => {
     }
 };
 
-
+let test =
 {
     "title": "bouh",
     "category": "divers",
@@ -249,7 +288,7 @@ validateQuiz = (id,obj,cb) => {
       }
     ]
   }
-  
+
 
 // TODO
 // updateQuestion = (id,obj,cb) => {
@@ -260,4 +299,8 @@ validateQuiz = (id,obj,cb) => {
 //     }
 // }
 
-module.exports = {validateQuiz};
+module.exports = {
+  validateQuiz,
+  updateFaq,
+  updateAccueil
+};

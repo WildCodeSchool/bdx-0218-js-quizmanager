@@ -13,9 +13,11 @@ var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+const FileStore = require('session-file-store')(Session);
+var logger = require('morgan');
 
 
-var bcrypt = require('bcrypt');
+// var bcrypt = require('bcrypt');
 var varFloat = "";
 var cookie = require('cookie');
 var mysql = require('mysql');
@@ -25,6 +27,27 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 var router = express.Router();
 app.use(cookieParser());
 
+
+app.use(Session({
+    store: new FileStore({
+        path: path.join(__dirname, '/tmp'),
+        encrypt: true
+    }),
+    secret: 'Super Secret !',
+    resave: true,
+    saveUninitialized: true,
+    name : 'sessionId'
+}));
+
+
+router.get('/session-in', (req, res, next) => {
+req.session //initialisation de la variable
+res.end();//stop la requête et stock la variable
+});
+
+router.get('/session-out', (req, res, next) => {
+res.send(req.session.song)//receptionne la requête et affiche
+});
 
 app.use(express.json())
 app.use('/views', express.static('views'));
@@ -78,7 +101,7 @@ passport.use(new LocalStrategy(
           } else if (results[0].password!=password){
             return done(null,false);
           }
-            return done(null,'false');
+            return done(null,true);
         }
 
       })
