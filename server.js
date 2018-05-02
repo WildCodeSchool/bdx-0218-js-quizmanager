@@ -10,6 +10,7 @@ var createQuiz = require('./controlers/js/sqlCreate');
 var updateQuiz = require('./controlers/js/sqlUpdate');
 var checkAdmin = require('./controlers/js/sqlAdmin');
 var updateDelete = require('./controlers/js/sqlDelete')
+
 var varFloat = "";
 
 app.use(bodyParser.json()); // support json encoded bodies
@@ -190,6 +191,7 @@ app.get('/VALIDATE/:id(\\d+)',function(req,res){
     });
 });
 //FIN PAGE DE VERIFICATION//
+
 
 //ENVOI EMAIL//
 app.post('/sendMail', function (req, res) {

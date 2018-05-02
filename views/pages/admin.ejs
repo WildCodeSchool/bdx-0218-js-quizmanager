@@ -9,10 +9,21 @@
   <% include ../partials/header %>
 </header>
 
-<main>
+<section class="titre_faq">
     <h1>Page d'administration</h1>
+</section>
+
+<section class="titre">
     <p>Bienvenue sur votre espace d'administration du quizland</p>
-</main>
+</section>
+
+<section>
+    <form action="/checkAdmin" method="POST">
+        <input type="text" name="userName" placeholder="Entrez votre nom d'utilisateur"/>
+        <input type="password" name="password" placeholder="Entrez votre mot de passe"/>
+        <input type="submit" name="Envoyer">
+    </form>
+</section>
 
 <aside>
     <form action="/checkAdmin" method="POST">

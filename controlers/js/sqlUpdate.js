@@ -121,6 +121,7 @@ updateValidate = (id,cb) => {
 };
 //FIN VALIDATION QUIZ//
 
+
 let test =
 {
     "title": "bouh",
@@ -356,4 +357,5 @@ module.exports = {
   updateQst,
   updateAns,
   updateValidate
+
 };
