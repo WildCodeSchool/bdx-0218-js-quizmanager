@@ -41,6 +41,14 @@ app.get('/', function(req, res) {
 });
 
 
+//page jouer
+
+app.get('/jouer', function(req, res) {
+    readQuiz.getListQuiz(function (data){
+    res.render('pages/jouer',{titre:data});
+    });
+});
+
 // about page
 app.get('/admin', function(req, res) {
     res.render('pages/admin');
@@ -71,21 +79,22 @@ passport.use(new LocalStrategy(
     console.log(password);
     const db = require('./db');
 
-    db.query('SELECT password FROM users WHERE username= ?',[username], function(err,results,fields){
+    db.query('SELECT pass FROM admin WHERE login= ?',[username], function(err,results,fields){
       if (err){
         throw (err);
 
         } else {
           if (results.length === 0){
             return done(null,false);
-          } else if (results[0].password!=password){
+          } else if (results[0].pass!=password){
             return done(null,false);
           }
-            return done(null,true);
+
+            return done(null,'dddd');
         }
 
       })
-      db.query('SELECT username FROM users as userName', function(error,results,fields){
+      db.query('SELECT login FROM admin as userName', function(error,results,fields){
               if (error) {
                 throw error;
               };
