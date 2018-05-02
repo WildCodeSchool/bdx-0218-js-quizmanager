@@ -13,8 +13,8 @@ var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-const FileStore = require('session-file-store')(Session);
-var logger = require('morgan');
+
+
 
 
 // var bcrypt = require('bcrypt');
@@ -28,26 +28,6 @@ var router = express.Router();
 app.use(cookieParser());
 
 
-app.use(Session({
-    store: new FileStore({
-        path: path.join(__dirname, '/tmp'),
-        encrypt: true
-    }),
-    secret: 'Super Secret !',
-    resave: true,
-    saveUninitialized: true,
-    name : 'sessionId'
-}));
-
-
-router.get('/session-in', (req, res, next) => {
-req.session //initialisation de la variable
-res.end();//stop la requête et stock la variable
-});
-
-router.get('/session-out', (req, res, next) => {
-res.send(req.session.song)//receptionne la requête et affiche
-});
 
 app.use(express.json())
 app.use('/views', express.static('views'));
@@ -125,14 +105,6 @@ passport.deserializeUser(function(user, done) {
 });
 
 
-//page liste des quizs
-
-app.get('/jouer', function(req, res) {
-    readQuiz.getListQuiz(function (data){
-    res.render('pages/jouer',{titre:data});
-})
-});
-
 // page question
 app.get('/questionspage/:id(\\d+)',function(req,res){
     readQuiz.getQuiz(req.params.id, function(data) {
@@ -142,15 +114,48 @@ app.get('/questionspage/:id(\\d+)',function(req,res){
 
 // FAQ page
 app.get('/faq', function(req, res) {
-    res.render('pages/faq', {varFloat:"floatt"});
+    readQuiz.getFaq(function (data) {
+        res.render('pages/faq', {varFloat:"floatt", faq: data});
+    });
+});
+
+app.get('/adminFaq', function(req, res) {
+    readQuiz.getFaq(function (data) {
+        res.render('pages/adminFaq', {varFloat:"floatt", faq: data});
+    })
+});
+
+app.post('/faqModify', function(req, res) {
+    updateQuiz.updateFaq(req.body.question, req.body.reponse, req.body.id, (answer) => {
+        readQuiz.getFaq(function (data) {
+        res.render('pages/adminFaq', {varFloat:"floatt", update: answer, faq: data});
+        });
+    });
 });
 
 // acceuil page
 app.get('/accueil', function(req, res) {
-    readQuiz.getLastQuiz(function (data){
-    res.render('pages/accueil',{titre:data});
-})
+    readQuiz.getLastQuiz(function (dataQuiz){
+        readQuiz.getAccueil(function (dataText){
+        res.render('pages/accueil', {titre:dataQuiz, text: dataText});
+        })
+    })
 });
+
+app.get('/adminAccueil', function(req, res) {
+    readQuiz.getAccueil(function (dataText) {
+        res.render('pages/adminAccueil', {varFloat:"floatt", text: dataText});
+    })
+});
+
+app.post('/accueilModify', function(req, res) {
+    updateQuiz.updateAccueil(req.body.text1, req.body.text2, req.body.id, (answer) => {
+        readQuiz.getAccueil(function (dataText) {
+            res.render('pages/adminAccueil', {varFloat:"floatt", update: answer, text: dataText});
+        });
+    });
+});
+
 // formulaire de contact
 app.get('/contact', function(req, res) {
     res.render('pages/contact');
@@ -224,35 +229,7 @@ app.post('/sendMail', function (req, res) {
   });
   res.redirect('/contact')
 });
-
-
 // FIN ENVOI EMAIL//
 
-
-//PAGE DE VERIFICATION//
-
-app.get('/test/', function(req,res) {
-
-    readQuiz.getUncheckedQuiz(function(data){
-
-        res.render('pages/test',{
-
-          plop : data
-
-        })})
-
-});
-
-app.get('/testcheckquizz/:id(\\d+)',function(req,res){
-
-    readQuiz.getQuiz(req.params.id, function(data) {
-
-     res.render('pages/testcheckquizz', {quiz: data});
-
-    });
-
-});
-
-//FIN PAGE DE VERIFICATION//
 app.listen(3000);
 console.log('3000 have to be changed in 80 for prod');

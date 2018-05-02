@@ -24,6 +24,10 @@ h3{
   font-size: 1.7rem;
 }
 
+a {
+  text-decoration: none;
+}
+
 .row {
 	display: flex;
 	justify-content: center;
