@@ -23,16 +23,24 @@ setQuiz = (obj,cb) => {
                                     for (let j = 0; j < 4; j++) {
                                             try {
                                                 connection.query(
-                                                    'INSERT INTO answers(answer, great, id_questions) VALUES (?,?,?)',[obj.questions[numQuestion].answers[j].answer,obj.questions[numQuestion].answers[j].great,idQuestion], (err, rows) => {
+                                                    'INSERT INTO answers(answer, great, id_questions) VALUES (?,?,?)',
+                                                    [
+                                                        obj.questions[numQuestion].answers[j].answer,
+                                                        obj.questions[numQuestion].answers[j].great,
+                                                        idQuestion
+                                                    ], (err, rows) => {
+
+
+
                                                     });
-                                                    done ++;
-                                                    if (done === 40) {
-                                                        connection.end();
-                                                        cb(newQuizId);
-                                                    }
-                                                } catch (err) {
-                                                throw ('An error occur during an answer insert: '+ err);
+                                                done ++;
+                                                if (done === 40) {
+                                                    connection.end();
+                                                    cb(newQuizId);
                                                 }
+                                            } catch (err) {
+                                                throw ('An error occur during an answer insert: '+ err);
+                                            }
                                     }
                                 });
                             } catch (err) {
@@ -53,11 +61,10 @@ setQuiz = (obj,cb) => {
 };
 
 // Format de requête
-
 // setQuiz(quiz, function(data){
 //     console.log('job done, new quiz id :'+ data);
 // });
 
 // La variable data retourné correspond à l'Id du quiz inséré
 
-module.exports = setQuiz;
+module.exports = {setQuiz};

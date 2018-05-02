@@ -1,143 +1,161 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-   <% include ../partials/head %>
+	<% include ../partials/head %>
 </head>
+
 <body>
 
-<header>
-  <% include ../partials/header %>
-</header>
+	<header>
+		<% include ../partials/header %>
+	</header>
 
-<main class="accueil">
+	<main class="accueil">
 
-<section class="appel">
-	 		<div class="row">
-					<div class="col text_appel">
-							<h3 class="text_appel1">Jouer et créer des quizs.</h3>
-							<h2 class="text_appel2">En quelques clics.</h2>
-					</div>
+		<section class="appel">
+			<div class="row">
+				<div class="col text_appel">
+					<h3 class="text_appel1"><%= text[0].text1 %></h3>
+					<h2 class="text_appel2"><%= text[0].text2 %></h2>
+				</div>
 			</div>
 			<div class="row buttons">
-							<h3 class="bouton_de_gauche">Jouer une partie</h2>
-							<h3 class="bouton_de_droite">Créer un quiz</h2>
-	  	</div>
-</section>
-
-<section class="publics">
-	<div class="row">
-			<div class="col text_appel">
-					<h3 class="text_appel1">Une solution ludique pour tester les connaissances</h3>
-					<h2 class="text_appel2">auprès de tous les publics.</h2>
+				<h3 class="bouton_de_gauche">Jouer une partie</h2>
+					<h3 class="bouton_de_droite">Créer un quiz</h2>
 			</div>
-	</div>
-	<div class="row public">
-			<div class="col professionnels">
+		</section>
+
+		<section class="publics">
+			<div class="row">
+				<div class="col text_appel">
+					<h3 class="text_appel1"><%= text[1].text1 %></h3>
+					<h2 class="text_appel2"><%= text[1].text2 %></h2>
+				</div>
+			</div>
+			<div class="row public">
+				<div class="col professionnels">
 					<h3>Professionels</h2>
-					<img class="imagepublic" src="/views/img/business.jpeg" src="business">
-		 </div>
+						<img class="imagepublic" src="/views/img/business.jpeg" src="business" />
+				</div>
 
-		 <div class="col etudiants">
-				 <h3>Etudiants</h2>
-				 <img class="imagepublic" src="/views/img/students.jpeg" src="etudiants">
-		</div>
+				<div class="col etudiants">
+					<h3>Etudiants</h2>
+						<img class="imagepublic" src="/views/img/students.jpeg" src="etudiants" />
+				</div>
 
-		<div class="col enfants">
-				<h3>Enfants</h2>
-				<img class="imagepublic" src="/views/img/enfant.jpeg" src="enfants">
-	 	</div>
+				<div class="col enfants">
+					<h3>Enfants</h2>
+						<img class="imagepublic" src="/views/img/enfant.jpeg" src="enfants" />
+				</div>
 
-	 	<div class="col seniors">
-			 <h3>Seniors</h2>
-			 <img class="imagepublic" src="/views/img/senior.jpg" src="seniors">
-		</div>
-
-
+				<div class="col seniors">
+					<h3>Seniors</h2>
+						<img class="imagepublic" src="/views/img/senior.jpg" src="seniors" />
+				</div>
 
 
-	</section>
 
-	<section class="lastquiz">
-	<div class="backgroundcaroussel">
 
-					<div class="content">
+		</section>
+
+		<section class="lastquiz">
+			<div class="backgroundcaroussel">
+
+				<div class="content">
+
+					<div class="row">
+						<div class="col whiteframe">
+							<h1 class="decouvrez">NOS DERNIERS QUIZS</h1>
 
 							<div class="row">
-									<div class="col whiteframe">
-											<h1 class="decouvrez">NOS DERNIERS QUIZS</h1>
-
-											<div class="row">
-													<div class="col smallsquare">
-															<div class="col whitesquare">
-																	<a href="/questionspage/1" />
-																<img src="/views/img/red-sante.png" src="sante icon">
-																<div class="col redrectangle">
-																<h2>SANTE</h2>
-																</div>
-															</div>
-													</div>
-
-													<div class="col smallsquare">
-															<div class="col whitesquare">
-																	<a href="/questionspage/1" />
-															<img src="/views/img/red-burger.png" src="burger icon">
-																	<div class="col redrectangle">
-																	<h2>BURGER</h2>
-																	</div>
-															</div>
-													</div>
-
-													<div class="col smallsquare">
-
-															<div class="col whitesquare">
-																<a href="/questionspage/1" />
-
-															<img src="/views/img/red-chimie.png" src="science icon">
-																	<div class="col redrectangle">
-																	<h2>MESURE</h2></a>
-																	</div>
-															</div>
-													</div>
-
-													<div class="col smallsquare">
-															<div class="col whitesquare">
-																	<a href="/questionspage/1" />
-															<img src="/views/img/red-ski.png" src="ski icon">
-																	<div class="col redrectangle">
-																	<h2>SKI</h2>
-																	</div>
-															</div>
-													</div>
+								<div class="col smallsquare">
+									<div class="col whitesquare">
+										<a href="/questionspage/1" />
+										<img src="/views/img/red-sante.png" src="sante icon" />
+										<div class="col redrectangle">
+											<h2>
+												<%=titre[0].category%>
+											</h2>
 										</div>
+									</div>
 								</div>
+
+								<div class="col smallsquare">
+									<div class="col whitesquare">
+										<a href="/questionspage/1" />
+										<img src="/views/img/red-burger.png" src="burger icon" />
+										<div class="col redrectangle">
+											<h2>
+												<%=titre[1].category%>
+											</h2>
+										</div>
+									</div>
+								</div>
+
+								<div class="col smallsquare">
+
+									<div class="col whitesquare">
+										<a href="/questionspage/1" />
+
+										<img src="/views/img/red-chimie.png" src="science icon" />
+										<div class="col redrectangle">
+											<h2>
+												<%=titre[2].category%>
+											</h2>
+										</div>
+									</div>
+								</div>
+
+								<div class="col smallsquare">
+									<div class="col whitesquare">
+										<a href="/questionspage/1" />
+										<img src="/views/img/red-ski.png" src="ski icon" />
+										<div class="col redrectangle">
+											<h2>
+												<%=titre[3].category%>
+											</h2>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-	</div>
-	</section>
-
-
-  <section class="news">
-  	 		<div class="row">
-  					<div class="col text_appel">
-  							<h3 class="text_appel1">Nous nous impliquons chaque jour dans l'apprentissage.</h3>
-  							<h2 class="text_appel2">Découvrez nos actions.</h2>
-  					</div>
-  			</div>
-
-				<div class="row"><iframe width="560" height="315" src="https://www.youtube.com/embed/ibxP229BGaU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 				</div>
-				<div class="row buttons">
-  							<h3 class="bouton_de_gauche">Découvrez + de vidéos</h2>
-  	  	</div>
-  </section>
+			</div>
+		</section>
+
+
+		<section class="news">
+			<div class="row">
+				<div class="col text_appel">
+					<h3 class="text_appel1"><%= text[2].text1 %></h3>
+					<h2 class="text_appel2"><%= text[2].text2 %></h2>
+				</div>
+			</div>
+
+			<div class="row">
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/ibxP229BGaU" frameborder="0" allow="autoplay; encrypted-media"
+				    allowfullscreen></iframe>
+			</div>
+			<div class="row buttons">
+				<!-- <h3 class="bouton_de_gauche">Découvrez + de vidéos</h2> -->
+			</div>
+		</section>
 
 
 
-</main>
+	</main>
 
-<footer>
-    <% include ../partials/footer %>
-</footer>
-<% include ../partials/scripts %>
+	<footer>
+		<% include ../partials/footer %>
+	</footer>
+	<% include ../partials/scripts %>
+
+		<script type="text/javascript">
+			let titre = <%- JSON.stringify(titre,0,2) %>
+		</script>
 </body>
+
+
 </html>

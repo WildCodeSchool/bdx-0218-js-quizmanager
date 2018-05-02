@@ -5,44 +5,58 @@ var express = require('express');
 var app = express();
 var nodemailer = require('nodemailer');
 var bodyParser = require('body-parser');
-var readQuiz = require('./controlers/js/sqlRead')
+var readQuiz = require('./controlers/js/sqlRead');
+var createQuiz = require('./controlers/js/sqlCreate');
+var updateQuiz = require('./controlers/js/sqlUpdate');
+var checkAdmin = require('./controlers/js/sqlAdmin');
+var updateDelete = require('./controlers/js/sqlDelete')
 var varFloat = "";
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 var router = express.Router();
 
-
+app.use(express.json()) 
 app.use('/views', express.static('views'));
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
-// use res.render to load up an ejs view file
-
 // index page
-
 app.get('/', function(req, res) {
     res.render('pages/index');
 });
 
-// play page
-app.get('/jouer', function(req, res) {
-    res.render('pages/jouer');
-});
 
 // about page
 app.get('/admin', function(req, res) {
     res.render('pages/admin');
 });
 
-// play page
+app.post('/checkAdmin',function(req,res) {
+    checkAdmin.checkLogin(req.body.userName,function(userPassword){
+        if (userPassword === undefined) {
+            console.log("Ce nom d'utilisateur est inconnu !");
+            res.redirect ('/admin')
+        }
+        else if (req.body.password === userPassword) {
+            console.log("super !");
+            res.redirect ('/admin')
+        } else {
+            console.log("votre mot de passe est erroné !");
+            res.redirect ('/admin')
+        }
+    });
+});
+
+
 app.get('/jouer', function(req, res) {
-    res.render('pages/jouer');
+    readQuiz.getListQuiz(function (data){
+    res.render('pages/jouer',{titre:data});
+    });
 });
 
 // page question
-
 app.get('/questionspage/:id(\\d+)',function(req,res){
     readQuiz.getQuiz(req.params.id, function(data) {
 	   res.render('pages/questionspage', {quiz: data});
@@ -51,13 +65,46 @@ app.get('/questionspage/:id(\\d+)',function(req,res){
 
 // FAQ page
 app.get('/faq', function(req, res) {
-    res.render('pages/faq', {varFloat:"floatt"});
+    readQuiz.getFaq(function (data) {
+        res.render('pages/faq', {varFloat:"floatt", faq: data});
+    });
+});
+
+app.get('/adminFaq', function(req, res) {
+    readQuiz.getFaq(function (data) {
+        res.render('pages/adminFaq', {varFloat:"floatt", faq: data});
+    })
+});
+
+app.post('/faqModify', function(req, res) {
+    updateQuiz.updateFaq(req.body.question, req.body.reponse, req.body.id, (answer) => {
+        readQuiz.getFaq(function (data) {
+        res.render('pages/adminFaq', {varFloat:"floatt", update: answer, faq: data});
+        });
+    });
 });
 
 // acceuil page
-
 app.get('/accueil', function(req, res) {
-    res.render('pages/accueil');
+    readQuiz.getLastQuiz(function (dataQuiz){
+        readQuiz.getAccueil(function (dataText){
+        res.render('pages/accueil', {titre:dataQuiz, text: dataText});
+        })
+    })
+});
+
+app.get('/adminAccueil', function(req, res) {
+    readQuiz.getAccueil(function (dataText) {
+        res.render('pages/adminAccueil', {varFloat:"floatt", text: dataText});
+    })
+});
+
+app.post('/accueilModify', function(req, res) {
+    updateQuiz.updateAccueil(req.body.text1, req.body.text2, req.body.id, (answer) => {
+        readQuiz.getAccueil(function (dataText) {
+            res.render('pages/adminAccueil', {varFloat:"floatt", update: answer, text: dataText});
+        });
+    });
 });
 
 // formulaire de contact
@@ -78,8 +125,14 @@ app.get('/:id(\\d+)',(req,res)=> {
 });
 
 // create quiz page
-app.get('/creationQuizz', function(req, res) {
-    res.render('pages/creationQuizz', {varFloat:"floatt"});
+app.get('/creationQuiz', function(req, res) {
+    res.render('pages/creationQuiz', {varFloat:"floatt"});
+});
+
+app.post('/creationQuiz', function(req,res) {
+    createQuiz.setQuiz(req.body, function(answer){
+        res.send({answer: answer});
+    });
 });
 
 app.get('/creation', function(req, res) {
@@ -94,6 +147,49 @@ app.get('/bravo', function(req, res) {
     res.render('pages/FinQuizz', {varFloat:"floatt"});
 });
 
+//MODIFIER QUIZ//
+app.post('/quizModify', function(req, res) {
+    updateQuiz.updateQst(req.body.qstTitre, req.body.id, function (data) {  
+    });
+    updateQuiz.updateAns(req.body.qstrep01, req.body.qstid01, function (data) {
+    });
+    updateQuiz.updateAns(req.body.qstrep02, req.body.qstid02, function (data) {  
+    });
+    updateQuiz.updateAns(req.body.qstrep03, req.body.qstid03, function (data) {   
+    });
+    updateQuiz.updateAns(req.body.qstrep04, req.body.qstid04, function (data) {   
+    });
+    res.redirect(req.get('referer'));
+});
+//FIN MODIFIER QUIZ//
+
+//PAGE DE VERIFICATION//
+app.get('/checkList/', function(req,res) {
+    readQuiz.getUncheckedQuiz(function(data){
+        res.render('pages/checkList',{
+          plop : data  
+        })})  
+});
+
+app.get('/editQuiz/:id(\\d+)',function(req,res){
+    readQuiz.getQuiz(req.params.id, function(data) {
+        // console.log(JSON.stringify(data,0,2))
+       res.render('pages/editQuiz', {quiz: data});
+    });
+});
+
+app.get('/DELETE/:id(\\d+)',function(req,res){
+    updateDelete.updateDelete(req.params.id, function(data) {
+        res.redirect('/checkList')
+    });
+});
+
+app.get('/VALIDATE/:id(\\d+)',function(req,res){
+    updateQuiz.updateValidate(req.params.id, function(data) {
+        res.redirect('/CheckList')
+    });
+});
+//FIN PAGE DE VERIFICATION//
 
 //ENVOI EMAIL//
 app.post('/sendMail', function (req, res) {
