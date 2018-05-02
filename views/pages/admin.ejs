@@ -14,6 +14,14 @@
     <p>Bienvenue sur votre espace d'administration du quizland</p>
 </main>
 
+<aside>
+    <form action="/checkAdmin" method="POST">
+        <input type="text" name="userName" placeholder="Entrez votre nom d'utilisateur"/>
+        <input type="password" name="password" placeholder="Entrez votre mot de passe"/>
+        <input type="submit" name="Envoyer">
+    </form>
+</aside>
+
 <footer>
     <% include ../partials/footer %>
 </footer>
