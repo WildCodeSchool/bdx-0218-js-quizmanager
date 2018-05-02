@@ -162,13 +162,13 @@ module.exports = {
   getListQuiz
 };
 
-// getLastQuiz(function(data) {
-//    console.log(JSON.stringify(data,0,2));
-//    });
-
-getListQuiz(function(data) {
+getLastQuiz(function(data) {
    console.log(JSON.stringify(data,0,2));
    });
+
+// getListQuiz(function(data) {
+//    console.log(JSON.stringify(data,0,2));
+//    });
 
 // getQuiz(1,function(data) {
 //   console.log(JSON.stringify(data,0,2));

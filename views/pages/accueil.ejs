@@ -69,42 +69,44 @@
 											<div class="row">
 													<div class="col smallsquare">
 															<div class="col whitesquare">
-																	<a href="/questionspage/1" />
-																<img src="/views/img/red-sante.png" src="sante icon">
-																<div class="col redrectangle">
-																<h2><%=titre[0].category%></h2>
+																	<a href="/questionspage/<%=titre[0].id %>" />
+																<!-- <img id="img0" src=<%titre[0].category%> > -->
+                                <div class="col redrectangle">
+																<h2><%titre[0].title%></h2>
 																</div>
 															</div>
 													</div>
 
+
 													<div class="col smallsquare">
 															<div class="col whitesquare">
-																	<a href="/questionspage/1" />
-															<img src="/views/img/red-burger.png" src="burger icon">
+																	<a href="/questionspage/<%=titre[1].id %>" />
+																<img id="img1" src="/views/img/red-chimie.png">
+																<div class="col redrectangle">
+																<h2><%=titre[1].title%></h2>
+																</div>
+															</div>
+													</div>
+
+
+													<div class="col smallsquare">
+
+															<div class="col whitesquare">
+																<a href="/questionspage/<%=titre[2].id %>" />
+
+															<img id="img2" src="/views/img/red-chimie.png" src="science icon">
 																	<div class="col redrectangle">
-																	<h2><%=titre[1].category%></h2>
+																	<h2><%=titre[2].title%></h2></a>
 																	</div>
 															</div>
 													</div>
 
 													<div class="col smallsquare">
-
 															<div class="col whitesquare">
-																<a href="/questionspage/1" />
-
-															<img src="/views/img/red-chimie.png" src="science icon">
+																	<a href="/questionspage/<%=titre[3].id %>" />
+															<img id="img3" src="/views/img/red-ski.png" src="ski icon">
 																	<div class="col redrectangle">
-																	<h2></h2></a>
-																	</div>
-															</div>
-													</div>
-
-													<div class="col smallsquare">
-															<div class="col whitesquare">
-																	<a href="/questionspage/1" />
-															<img src="/views/img/red-ski.png" src="ski icon">
-																	<div class="col redrectangle">
-																	<h2></h2>
+																	<h2><%=titre[3].title%></h2>
 																	</div>
 															</div>
 													</div>
@@ -142,8 +144,7 @@
 
 <script type="text/javascript">
 let titre = <%- JSON.stringify(titre,0,2) %>
-     
-    </script>
+
 </body>
 
 

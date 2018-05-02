@@ -5,15 +5,28 @@ var express = require('express');
 var app = express();
 var nodemailer = require('nodemailer');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var readQuiz = require('./controlers/js/sqlRead');
 var createQuiz = require('./controlers/js/sqlCreate');
+var app = module.exports = express();
+var session = require('express-session');
+var MySQLStore = require('express-mysql-session')(session);
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
+
+var bcrypt = require('bcrypt');
 var varFloat = "";
+var cookie = require('cookie');
+var mysql = require('mysql');
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 var router = express.Router();
+app.use(cookieParser());
 
-app.use(express.json()) 
+
+app.use(express.json())
 app.use('/views', express.static('views'));
 
 // set the view engine to ejs
@@ -29,7 +42,67 @@ app.get('/', function(req, res) {
 app.get('/admin', function(req, res) {
     res.render('pages/admin');
 });
+//page login
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/login', function(req, res) {
+    res.render('pages/login',{title:'Login'});
+});
+
+app.get('/profile', function(req,res){
+  res.render('pages/profile',{username:'marion'});
+})
+
+app.post('/login',
+passport.authenticate('local',{
+  successRedirect:'/profile',
+  failureRedirect:'/login'
+}));
+
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    console.log(username);
+    console.log(password);
+    const db = require('./db');
+
+    db.query('SELECT password FROM users WHERE username= ?',[username], function(err,results,fields){
+      if (err){
+        throw (err);
+
+        } else {
+          if (results.length === 0){
+            return done(null,false);
+          } else if (results[0].password!=password){
+            return done(null,false);
+          }
+            return done(null,'false');
+        }
+
+      })
+      db.query('SELECT username FROM users as userName', function(error,results,fields){
+              if (error) {
+                throw error;
+              };
+
+              let userName =results[0].username;
+      });
+  }
+
+));
+
+passport.serializeUser(function(userName, done) {
+  done(null, userName);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, userName);
+});
+
+
+//page liste des quizs
 
 app.get('/jouer', function(req, res) {
     readQuiz.getListQuiz(function (data){
@@ -68,7 +141,7 @@ app.get('/searchquiz', function(req, res) {
 // play quiz page
 app.get('/:id(\\d+)',(req,res)=> {
     readQuiz.getQuizInfos(req.params.id, function(data) {
-    res.render('pages/jouer',{id: data.id, title:data.title, category:data.category});  
+    res.render('pages/jouer',{id: data.id, title:data.title, category:data.category});
   });
 });
 
@@ -128,7 +201,35 @@ app.post('/sendMail', function (req, res) {
   });
   res.redirect('/contact')
 });
+
+
 // FIN ENVOI EMAIL//
 
+
+//PAGE DE VERIFICATION//
+
+app.get('/test/', function(req,res) {
+
+    readQuiz.getUncheckedQuiz(function(data){
+
+        res.render('pages/test',{
+
+          plop : data
+
+        })})
+
+});
+
+app.get('/testcheckquizz/:id(\\d+)',function(req,res){
+
+    readQuiz.getQuiz(req.params.id, function(data) {
+
+     res.render('pages/testcheckquizz', {quiz: data});
+
+    });
+
+});
+
+//FIN PAGE DE VERIFICATION//
 app.listen(3000);
 console.log('3000 have to be changed in 80 for prod');
