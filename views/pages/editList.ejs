@@ -4,14 +4,15 @@
     <% include ../partials/head %>
 </head>
 <body>
-    <h2>Liste des Quiz</h2>
+        <section class="titre_faq">
+                <h1>Liste des Quiz</h1>
+            </section>
 <main>
     <div class="row">
         <div class="testplopid">ID</div>
         <div class="testplopcat">Categorie</div>
         <div class="testploptitre">Titre</div>
         <div class="testplopbtn">Vérification</div>
-        <div class="testplopbtnVAL">Validation</div>
         <div class="testplopbtnDEL">Suppression</div>
     </div>
 </main>
@@ -92,27 +93,6 @@
             
             here[0].appendChild(newDiv);       
        }
-
-        // VALIDATE BUTTON //
-        for (let zx = 0; zx < editlist.length; zx++) {
-            var varIdQuiz = editlist[zx].id;
-
-            var newDiv = document.createElement("div");
-            newDiv.setAttribute("class", "testbutton");
-            var newContent = document.createTextNode("Validation");
-            newDiv.appendChild(newContent);
-            // IIFE => VOIR STACK OVERFLOW //
-             newDiv.onclick= (function(editlist, varIdQuiz) {
-                return function(){
-                    window.location.replace("/VALIDATE/" + varIdQuiz);
-                }
-             })(editlist, varIdQuiz);
-            //_____________________________________  //
-            let here = document.getElementsByClassName('testplopbtnVAL');
-            
-            here[0].appendChild(newDiv);       
-       }
-      
 </script>
 
 

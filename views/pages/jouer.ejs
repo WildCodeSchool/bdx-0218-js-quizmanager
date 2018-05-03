@@ -21,7 +21,7 @@
                         <h1 class="decouvrez">TOUS NOS QUIZS</h1>
 
 
-                        <div class="rowi">
+                        <!-- <div class="rowi">
 
                                 <h2 class="trier">Trier par date 📅 </h2>
                         </div>
@@ -30,7 +30,7 @@
                                 <h2 class="trier">Filtrer par catégorie  🐦 </h2>
                                
 
-                        </div>
+                        </div> -->
 
 
                         <div class="rowa">
@@ -43,7 +43,6 @@
                                             <h2>
                                                 <%=titre[0].title%>
                                             </h2>
-                                            <%=titre[0].category%>
                                         </div>
                                     </div>
                                 </a>
@@ -57,7 +56,6 @@
                                             <h2>
                                                 <%=titre[1].title%>
                                             </h2>
-                                            <%=titre[1].category%>
                                         </div>
 
                                     </div>
@@ -72,7 +70,6 @@
                                             <h2>
                                                 <%=titre[2].title%>
                                             </h2>
-                                            <%=titre[2].category%>
                                         </div>
 
                                     </div>
@@ -87,7 +84,6 @@
                                             <h2>
                                                 <%=titre[3].title%>
                                             </h2>
-                                            <%=titre[3].category%>
                                         </div>
                                     </div>
                                 </a>
@@ -101,7 +97,6 @@
                                             <h2>
                                                 <%=titre[4].title%>
                                             </h2>
-                                            <%=titre[4].category%>
                                         </div>
                                     </div>
                                 </a>
@@ -116,7 +111,6 @@
                                             <h2>
                                                 <%=titre[5].title%>
                                             </h2>
-                                            <%=titre[5].category%>
                                         </div>
                                     </div>
                                 </a>
@@ -130,7 +124,6 @@
                                             <h2>
                                                 <%=titre[6].title%>
                                             </h2>
-                                            <%=titre[6].category%>
                                         </div>
                                     </div>
                                 </a>
@@ -144,7 +137,6 @@
                                             <h2>
                                                 <%=titre[7].title%>
                                             </h2>
-                                            <%=titre[7].category%>
                                         </div>
                                     </div>
                                 </a>
@@ -158,7 +150,6 @@
                                             <h2>
                                                 <%=titre[8].title%>
                                             </h2>
-                                            <%=titre[8].category%>
                                         </div>
                                     </div>
                                 </a>
@@ -172,7 +163,6 @@
                                             <h2>
                                                 <%=titre[9].title%>
                                             </h2>
-                                            <%=titre[9].category%>
                                         </div>
                                     </div>
                                 </a>
@@ -186,7 +176,6 @@
                                             <h2>
                                                 <%=titre[10].title%>
                                             </h2>
-                                            <%=titre[10].category%>
                                         </div>
                                     </div>
                                 </a>
@@ -200,7 +189,6 @@
                                             <h2>
                                                 <%=titre[11].title%>
                                             </h2>
-                                            <%=titre[11].category%>
                                         </div>
                                     </div>
                                 </a>
@@ -215,7 +203,10 @@
 
 
     <div class="rowi">
+        <form method="POST" action="questionspage/">
             <input id="truc"  type="text" name="number_quiz" placeholder="Inscrire son n° de quiz">
+            <input type="submit" value="jouer"/>
+        </form>
     </div>
   </searchquiz>
 

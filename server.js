@@ -9,7 +9,6 @@ var fileStore = require('session-file-store')(session);
 var path = require('path');
 var nodemailer = require('nodemailer');
 var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
 var readQuiz = require('./controlers/js/sqlRead');
 var createQuiz = require('./controlers/js/sqlCreate');
 var updateQuiz = require('./controlers/js/sqlUpdate');
@@ -24,7 +23,6 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 var router = express.Router();
-app.use(cookieParser());
 
 app.use(express.json());
 app.use('/views', express.static('views'));
@@ -56,19 +54,10 @@ app.get('/jouer', function(req, res) {
     });
 });
 
-
+//page login
 app.get('/login', function(req, res) {
     res.render('pages/login');
 });
-//page login
-
-app.get('/login', function(req, res) {
-    res.render('pages/login',{title:'Login'});
-});
-
-app.get('/profile', function(req,res){
-  res.render('pages/profile',{username:'marion'});
-})
 
 app.post('/checkAdmin',function(req,res) {
     checkAdmin.checkLogin(req.body.username,function(data){
@@ -79,14 +68,13 @@ app.post('/checkAdmin',function(req,res) {
         else if (req.body.password === data.password) {
             console.log("super !");
             req.session.name = data.username;
-            console.log(req.session.name);
             res.redirect ('/admin')
         } else {
             console.log("votre mot de passe est erroné !");
             res.redirect ('/login')
         }
-			});
-		});
+    });
+});
 
 app.get('/admin', function(req,res) {
     if(!req.session.name) {
@@ -100,12 +88,21 @@ app.get('/jouer', function (req, res) {
     readQuiz.getListQuiz(function (data) {
         res.render('pages/jouer', { titre: data });
     })
-	});
+});
 
 // page question
 app.get('/questionspage/:id(\\d+)', function (req, res) {
     readQuiz.getQuiz(req.params.id, function (data) {
         res.render('pages/questionspage', { quiz: data });
+    });
+});
+
+app.post('/questionspage',function(req,res){
+    readQuiz.getQuiz(req.body.number_quiz, function(data) {
+        if(data.questions[0].question==='') {
+            res.redirect('/jouer');
+        }
+	   res.render('pages/questionspage', {quiz: data});
     });
 });
 
@@ -192,13 +189,6 @@ app.get('/creation', function (req, res) {
     res.render('pages/creer', { varFloat: "floatt" });
 });
 
-app.get('/finquizz', function (req, res) {
-    res.render('pages/FinQuizz', { varFloat: "floatt" });
-});
-
-app.get('/bravo', function (req, res) {
-    res.render('pages/FinQuizz', { varFloat: "floatt" });
-});
 
 //MODIFIER QUIZ//
 app.post('/quizModify', function (req, res) {
@@ -219,8 +209,11 @@ app.post('/quizModify', function (req, res) {
 
 // PAGE LISTE QUIZ//
 app.get('/editList', function (req, res) {
+    if(!req.session.name) {
+        res.redirect('/login');
+    }
     readQuiz.getCheckedQuiz(function (editlist) {
-        res.render('pages/Editlist', {
+        res.render('pages/editList', {
             editlist: editlist
         })
     })
@@ -229,6 +222,9 @@ app.get('/editList', function (req, res) {
 
 //PAGE DE VERIFICATION//
 app.get('/checkList', function (req, res) {
+    if(!req.session.name) {
+        res.redirect('/login');
+    }
     readQuiz.getUncheckedQuiz(function (data) {
         res.render('pages/checkList', {
             plop: data
@@ -237,6 +233,9 @@ app.get('/checkList', function (req, res) {
 });
 
 app.get('/editQuiz/:id(\\d+)', function (req, res) {
+    if(!req.session.name) {
+        res.redirect('/login');
+    }
     readQuiz.getQuiz(req.params.id, function (data) {
         // console.log(JSON.stringify(data,0,2))
         res.render('pages/editQuiz', { quiz: data });
@@ -244,12 +243,18 @@ app.get('/editQuiz/:id(\\d+)', function (req, res) {
 });
 
 app.get('/DELETE/:id(\\d+)', function (req, res) {
+    if(!req.session.name) {
+        res.redirect('/login');
+    }
     updateDelete.updateDelete(req.params.id, function (data) {
-        res.redirect('/checkList')
+        res.redirect('/admin')
     });
 });
 
 app.get('/VALIDATE/:id(\\d+)', function (req, res) {
+    if(!req.session.name) {
+        res.redirect('/login');
+    }
     updateQuiz.updateValidate(req.params.id, function (data) {
         res.redirect('/CheckList')
     });
