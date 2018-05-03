@@ -12,16 +12,10 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var readQuiz = require('./controlers/js/sqlRead');
 var createQuiz = require('./controlers/js/sqlCreate');
-var app = module.exports = express();
-var session = require('express-session');
-var MySQLStore = require('express-mysql-session')(session);
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+var updateQuiz = require('./controlers/js/sqlUpdate');
+var checkAdmin = require('./controlers/js/sqlAdmin');
+var updateDelete = require('./controlers/js/sqlDelete')
 
-
-
-
-// var bcrypt = require('bcrypt');
 var varFloat = "";
 var cookie = require('cookie');
 var mysql = require('mysql');
@@ -234,13 +228,50 @@ app.get('/bravo', function(req, res) {
     res.render('pages/FinQuizz', {varFloat:"floatt"});
 });
 
-//MODIFIER QUIZ
+//MODIFIER QUIZ//
+app.post('/quizModify', function(req, res) {
+    updateQuiz.updateQst(req.body.qstTitre, req.body.id, function (data) {  
+    });
+    updateQuiz.updateAns(req.body.qstrep01, req.body.qstid01, function (data) {
+    });
+    updateQuiz.updateAns(req.body.qstrep02, req.body.qstid02, function (data) {  
+    });
+    updateQuiz.updateAns(req.body.qstrep03, req.body.qstid03, function (data) {   
+    });
+    updateQuiz.updateAns(req.body.qstrep04, req.body.qstid04, function (data) {   
+    });
+    res.redirect(req.get('referer'));
+});
+//FIN MODIFIER QUIZ//
 
-app.get('/modifierQuiz/:id(\\d+)',function(req,res){
+//PAGE DE VERIFICATION//
+app.get('/checkList/', function(req,res) {
+    readQuiz.getUncheckedQuiz(function(data){
+        res.render('pages/checkList',{
+          plop : data  
+        })})  
+});
+
+app.get('/editQuiz/:id(\\d+)',function(req,res){
     readQuiz.getQuiz(req.params.id, function(data) {
-     res.render('pages/modifierQuiz', {quiz: data});
+        // console.log(JSON.stringify(data,0,2))
+       res.render('pages/editQuiz', {quiz: data});
     });
 });
+
+app.get('/DELETE/:id(\\d+)',function(req,res){
+    updateDelete.updateDelete(req.params.id, function(data) {
+        res.redirect('/checkList')
+    });
+});
+
+app.get('/VALIDATE/:id(\\d+)',function(req,res){
+    updateQuiz.updateValidate(req.params.id, function(data) {
+        res.redirect('/CheckList')
+    });
+});
+//FIN PAGE DE VERIFICATION//
+
 
 //ENVOI EMAIL//
 app.post('/sendMail', function (req, res) {
