@@ -232,6 +232,10 @@ module.exports = {
 //    console.log(JSON.stringify(data,0,2));
 //    });
 
+// getListQuiz(function(data) {
+//    console.log(JSON.stringify(data,0,2));
+//    });
+
 // getQuiz(1,function(data) {
 //   console.log(JSON.stringify(data,0,2));
 //  });
@@ -253,7 +257,7 @@ router.get("/:id",(req,res)=>{
 
   getQuiz(1, function(err,data){
     res.render("mavue",{quiz});
-    
+
   });
 }
 

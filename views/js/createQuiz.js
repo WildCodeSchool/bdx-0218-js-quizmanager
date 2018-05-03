@@ -36,8 +36,8 @@ begin.addEventListener('click', function(e) {
     e.preventDefault();
     if (newQuiz.title = document.getElementById('titre').value != '') {
         quizAnswers.style.display = 'block';
-        next.style.display = 'block'; 
-        
+        next.style.display = 'block';
+
         begin.style.display = "none";
         document.getElementsByClassName('cadreQuestion')[0].style.display = "none";
         newQuiz.title = document.getElementById('titre').value;
@@ -121,8 +121,8 @@ const prefill = (index)  => {
         reponse4.value = "";
         great1.checked = false;
         great2.checked = false;
-        great3.checked = false; 
-        great4.checked = false; 
+        great3.checked = false;
+        great4.checked = false;
     } else {
         question.value = newQuiz.questions[index].question;
         reponse1.value = newQuiz.questions[index].answers[0].answer;
@@ -149,7 +149,7 @@ const checkIndex = (index) => {
         past.style.display = 'none';
     } else if (index ===1) {
         past.style.display = 'block';
-    }    
+    }
 }
 
 const addQuestion = (index) => {
@@ -164,7 +164,7 @@ const addQuestion = (index) => {
         question:'',
         answers: []
     };
-    
+
     answers = {
         answer:'',
         great:''
