@@ -16,7 +16,7 @@ getQuiz = (id, cb) => {
         } else {
           //Requête SQL
           connection.query(
-            `SELECT questions.question, answers.answer, answers.great FROM questions
+            `SELECT questions.question, answers.answer, answers.great, questions.id AS Qid, answers.id AS Aid FROM questions
           INNER JOIN answers On questions.id = answers.id_questions
           WHERE id_quiz =${id};`, (err, rows, fields) => {
             //Traitement des erreurs ou des résultats
@@ -25,20 +25,23 @@ getQuiz = (id, cb) => {
             } else {
               // Injection des rangées de réponse dans l'objet callQuiz
                 let newQuestion ='';
+                let newQuestionId ='';
               for (let i in rows) {
                 if (i==0) { // La première entrée dans le tableau me permet d'inscrire les données du quiz et de commencer à entrer mon tableau de réponses
                   newQuestion = rows[i].question;
-                  answerArr.push({answer:rows[i].answer,great:rows[i].great});
+                  newQuestionId = rows[i].Qid;
+                  answerArr.push({answer:rows[i].answer,great:rows[i].great,id:rows[i].Aid});
                 } else if (newQuestion === rows[i].question) { // tant que la question est la même je continue à inscrire mes réponses à la suite du tableau de réponses
-                  answerArr.push({answer:rows[i].answer,great:rows[i].great});
+                  answerArr.push({answer:rows[i].answer,great:rows[i].great,id:rows[i].Aid});
                 } else { // la question n'est plus la même, je rempli mon tableau d'objet questions et je réinitialise mes variables pour recommencer
-                  callQuiz.questions.push({question:newQuestion,answers:answerArr});
+                  callQuiz.questions.push({question:newQuestion,id:newQuestionId, answers:answerArr});
                   answerArr = [];
                   newQuestion = rows[i].question;
-                  answerArr.push({answer:rows[i].answer,great:rows[i].great}); // sans oublier de récupérer la première série de réponse
+                  newQuestionId = rows[i].Qid;
+                  answerArr.push({answer:rows[i].answer,great:rows[i].great,id:rows[i].Aid}); // sans oublier de récupérer la première série de réponse
                 }
               }
-              callQuiz.questions.push({question:newQuestion,answers:answerArr}); // je rempli une dernière fois mon tableau question car le nom était le même pour la dernière série
+              callQuiz.questions.push({question:newQuestion,id:newQuestionId,answers:answerArr}); // je rempli une dernière fois mon tableau question car le nom était le même pour la dernière série
             }
             cb(callQuiz);
             });
@@ -215,13 +218,46 @@ getAccueil = (cb) => {
     }
 }
 
+getUncheckedQuiz = (cb) => {
+    try {
+        let uncheckedQuiz = [];
+        const connection = mysql.createConnection(connectionParameters);
+        connection.connect((err) => {
+            try {
+            if (err) {
+                throw ('connection with the database failed '+err);
+            } else {
+            }
+            connection.query(
+                `SELECT id, title, category FROM Quiz WHERE checked=0`, (err, rows) => {
+                    if (err) {
+                    throw err;
+                    } else {
+                        for (var i = 0; i < rows.length; i++) {
+                        uncheckedQuiz.push({id:rows[i].id, title:rows[i].title, category: rows[i].category});
+                        }
+                    }
+                    cb(uncheckedQuiz);
+                });
+            } catch (err) {
+                throw ('An error occur '+ err);
+            } finally {
+              //   connection.end();
+            }
+        });
+    } catch (err) {
+      throw ('An error occur: '+err);
+    }
+  }
+  
 module.exports = {
   getQuizInfos,
   getLastQuiz,
   getQuiz,
   getListQuiz,
   getFaq,
-  getAccueil
+  getAccueil,
+  getUncheckedQuiz
 };
 
 // getLastQuiz(function(data) {

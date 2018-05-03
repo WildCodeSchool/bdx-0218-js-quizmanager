@@ -47,29 +47,79 @@ updateAccueil = (text1,text2,id,cb) => {
   }
 };
 
-validateQuiz = (id,obj,cb) => {
-    try {
-        const connection = mysql.createConnection(connectionParameters);
-        try {
-            connection.connect((err) => {
-                try {
-                    connection.query(
-                      'UPDATE Quiz SET title = ?, category = ?, checked = ? WHERE id = ?', [obj.title,obj.category,obj.checked,id], (err, results) => {
-                                if (err) throw err;
-                                cb('update succeed!');
-                              });
-                    } catch(err) {
-                         throw ('An error occur during the data update: '+err);
-                }
-            });
-        } catch (err) {
-            throw ('An error occur during the connection process: '+ err);
-        }
-
-    } catch (err) {
-        throw ('An error occur during the connection creation process: '+ err);
-    }
+updateQst = (question,id,cb) => {
+  try {
+      const connection = mysql.createConnection(connectionParameters);
+      try {
+          connection.connect((err) => {
+              try {
+                  connection.query(
+                    'UPDATE questions SET question = ? WHERE id = ?',[question, id], (err, results) => {
+                              if (err) {throw err;}
+                              else {cb('okay update done')}
+                          
+                  });
+              } catch (err) {
+                       throw ('An error occur during the data update: '+err);
+              }        
+          });
+      } catch (err) {
+        throw ('An error occur during the connection process: '+ err);
+      }
+  } catch (err) { 
+      throw ('An error occur during the connection creation process: '+ err);
+  }
 };
+
+updateAns = (answer,id,cb) => {
+  try {  
+      const connection = mysql.createConnection(connectionParameters);
+      try {
+          connection.connect((err) => {
+              try {
+                  connection.query(
+                    'UPDATE answers SET answer = ? WHERE id = ?',[answer, id], (err, results) => {
+                              if (err) {throw err;}
+                              else {cb('okay update done')}
+                          
+                  });
+              } catch (err) {
+                       throw ('An error occur during the data update: '+err);
+              }        
+          });
+      } catch (err) {
+        throw ('An error occur during the connection process: '+ err);
+      }
+  } catch (err) { 
+      throw ('An error occur during the connection creation process: '+ err);
+  }
+};
+
+//VALIDATION QUIZ//
+updateValidate = (id,cb) => {
+  try {
+      const connection = mysql.createConnection(connectionParameters);
+      try {
+          connection.connect((err) => {
+              try {
+                  connection.query(
+                    'UPDATE Quiz SET checked=1 WHERE id = ?',[id], (err, results) => {
+                              if (err) {throw err;}
+                              else {cb('okay update done')}
+                  });
+              } catch (err) {
+                       throw ('An error occur during the data update: '+err);
+              }        
+          });
+      } catch (err) {
+        throw ('An error occur during the connection process: '+ err);
+      }
+  } catch (err) { 
+      throw ('An error occur during the connection creation process: '+ err);
+  }
+};
+//FIN VALIDATION QUIZ//
+
 
 let test =
 {
@@ -290,6 +340,7 @@ let test =
   }
 
 
+  
 // TODO
 // updateQuestion = (id,obj,cb) => {
 //     try {
@@ -300,7 +351,10 @@ let test =
 // }
 
 module.exports = {
-  validateQuiz,
   updateFaq,
-  updateAccueil
+  updateAccueil,
+  updateQst,
+  updateAns,
+  updateValidate
+
 };
