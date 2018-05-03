@@ -10,14 +10,15 @@ checkLogin = (user,cb) => {
                     throw ('connection with the database failed '+err);
                 } else {
                 connection.query(
-                    `SELECT pass FROM admin WHERE login='${user}';`, (err, rows) => {
+                    'SELECT pass FROM admin WHERE login=?',[user], (err, rows) => {
                         if (err) {
-                            throw err;
+                            throw ('An error occur during the query'+err);
                         } else {
                             if (rows[0] === undefined) {
                                 cb(undefined);
                             } else {
-                                cb(rows[0].pass);
+                                let ident = {username: user,password:rows[0].pass}
+                                cb(ident);
                             }
                         }
                     });

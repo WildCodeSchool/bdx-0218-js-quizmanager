@@ -2,7 +2,11 @@
 // load the things we need
 
 var express = require('express');
+var router = express.Router();
 var app = express();
+var session = require('express-session');
+var fileStore = require('session-file-store')(session);
+var path = require('path');
 var nodemailer = require('nodemailer');
 var bodyParser = require('body-parser');
 var readQuiz = require('./controlers/js/sqlRead');
@@ -13,10 +17,19 @@ var varFloat = "";
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-var router = express.Router();
 
 app.use(express.json()) 
 app.use('/views', express.static('views'));
+app.use(session ({
+	store: new fileStore ({
+		path: path.join(__dirname, '/tmp'),
+		encrypt: true
+	}),
+	secret: 'Sp3c1@lW0rd',
+	resave: false,
+	saveUninitialized: true,
+	name: 'sessionId'
+}));
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -28,26 +41,34 @@ app.get('/', function(req, res) {
 
 
 // about page
-app.get('/admin', function(req, res) {
-    res.render('pages/admin');
+app.get('/login', function(req, res) {
+    res.render('pages/login');
 });
 
 app.post('/checkAdmin',function(req,res) {
-    checkAdmin.checkLogin(req.body.userName,function(userPassword){
-        if (userPassword === undefined) {
+    checkAdmin.checkLogin(req.body.username,function(data){
+        if (data === undefined) {
             console.log("Ce nom d'utilisateur est inconnu !");
-            res.redirect ('/admin')
+            res.redirect ('/login')
         }
-        else if (req.body.password === userPassword) {
+        else if (req.body.password === data.password) {
             console.log("super !");
+            req.session.name = data.username;
+            console.log(req.session.name);
             res.redirect ('/admin')
         } else {
             console.log("votre mot de passe est erroné !");
-            res.redirect ('/admin')
+            res.redirect ('/login')
         }
     });
 });
 
+app.get('/admin', function(req,res) {
+    if(!req.session.name) {
+        res.redirect('/login');
+    }
+    res.render('pages/admin');
+})
 
 app.get('/jouer', function(req, res) {
     readQuiz.getListQuiz(function (data){
@@ -70,6 +91,9 @@ app.get('/faq', function(req, res) {
 });
 
 app.get('/adminFaq', function(req, res) {
+    if(!req.session.name) {
+        res.redirect('/login');
+    }
     readQuiz.getFaq(function (data) {
         res.render('pages/adminFaq', {varFloat:"floatt", faq: data});
     })
@@ -93,6 +117,9 @@ app.get('/accueil', function(req, res) {
 });
 
 app.get('/adminAccueil', function(req, res) {
+    if(!req.session.name) {
+        res.redirect('/login');
+    }
     readQuiz.getAccueil(function (dataText) {
         res.render('pages/adminAccueil', {varFloat:"floatt", text: dataText});
     })
