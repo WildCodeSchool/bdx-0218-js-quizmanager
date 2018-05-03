@@ -9,7 +9,6 @@ var fileStore = require('session-file-store')(session);
 var path = require('path');
 var nodemailer = require('nodemailer');
 var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
 var readQuiz = require('./controlers/js/sqlRead');
 var createQuiz = require('./controlers/js/sqlCreate');
 var updateQuiz = require('./controlers/js/sqlUpdate');
@@ -24,9 +23,8 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 var router = express.Router();
-app.use(cookieParser());
 
-app.use(express.json())
+app.use(express.json());
 app.use('/views', express.static('views'));
 app.use(session ({
 	store: new fileStore ({
@@ -62,33 +60,9 @@ app.get('/login', function(req, res) {
 });
 //page login
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.get('/login', function(req, res) {
-    res.render('pages/login',{title:'Login'});
-});
-
 app.get('/profile', function(req,res){
   res.render('pages/profile',{username:'marion'});
 })
-
-app.post('/login',
-passport.authenticate('local',{
-  successRedirect:'/profile',
-  failureRedirect:'/login'
-}));
-
-
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    console.log(username);
-    console.log(password);
-    const db = require('./db');
-
-    db.query('SELECT pass FROM admin WHERE login= ?',[username], function(err,results,fields){
-      if (err){
-        throw (err);
 
 
 app.post('/checkAdmin',function(req,res) {
@@ -100,13 +74,14 @@ app.post('/checkAdmin',function(req,res) {
         else if (req.body.password === data.password) {
             console.log("super !");
             req.session.name = data.username;
-            console.log(req.session.name);
             res.redirect ('/admin')
         } else {
             console.log("votre mot de passe est erroné !");
             res.redirect ('/login')
 
         }
+    });
+});
 
 app.get('/admin', function(req,res) {
     if(!req.session.name) {
@@ -116,24 +91,20 @@ app.get('/admin', function(req,res) {
 })
 
 
-              let userName =results[0].username;
-      });
-  }
-
-));
-
-passport.serializeUser(function(userName, done) {
-  done(null, userName);
-});
-
-passport.deserializeUser(function(user, done) {
-  done(null, userName);
-});
 
 
 // page question
 app.get('/questionspage/:id(\\d+)',function(req,res){
     readQuiz.getQuiz(req.params.id, function(data) {
+	   res.render('pages/questionspage', {quiz: data});
+    });
+});
+
+app.post('/questionspage',function(req,res){
+    readQuiz.getQuiz(req.body.number_quiz, function(data) {
+        if(data.questions[0].question==='') {
+            res.redirect('/jouer');
+        }
 	   res.render('pages/questionspage', {quiz: data});
     });
 });
