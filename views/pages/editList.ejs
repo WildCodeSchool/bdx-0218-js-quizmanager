@@ -4,8 +4,7 @@
     <% include ../partials/head %>
 </head>
 <body>
-    <h2>Liste des Quiz en cours de validation</h2>
-
+    <h2>Liste des Quiz</h2>
 <main>
     <div class="row">
         <div class="testplopid">ID</div>
@@ -21,52 +20,53 @@
 <% include ../partials/scripts %>
 
 <script type="text/javascript">
-    let plop = <%- JSON.stringify(plop,0,2) %>
+    let editlist = <%- JSON.stringify(editlist,0,2) %>
+    console.log(editlist)
 
     // ID //
-    for (let i = 0; i < plop.length; i++) {
+    for (let i = 0; i < editlist.length; i++) {
         var newDiv = document.createElement("div");
         newDiv.setAttribute("class", "quizId");
-        var newContent = document.createTextNode(plop[i].id);
+        var newContent = document.createTextNode(editlist[i].id);
         newDiv.appendChild(newContent);
         let here = document.getElementsByClassName('testplopid');
         here[0].appendChild(newDiv);
         }
 
     // CATEGORY //
-       for (let y = 0; y < plop.length; y++) {
+       for (let y = 0; y < editlist.length; y++) {
         var newDiv = document.createElement("div");
         newDiv.setAttribute("class", "quizCat");
-        var newContent = document.createTextNode(plop[y].category);
+        var newContent = document.createTextNode(editlist[y].category);
         newDiv.appendChild(newContent);
         let here = document.getElementsByClassName('testplopcat');
         here[0].appendChild(newDiv);
        }
 
     // TITLE //
-       for (let z = 0; z < plop.length; z++) {
+       for (let z = 0; z < editlist.length; z++) {
         var newDiv = document.createElement("div");
         newDiv.setAttribute("class", "quizTitre");
-        var newContent = document.createTextNode(plop[z].title);
+        var newContent = document.createTextNode(editlist[z].title);
         newDiv.appendChild(newContent);
         let here = document.getElementsByClassName('testploptitre');
         here[0].appendChild(newDiv);
        }
 
     // CHECK BUTTON //
-        for (let zx = 0; zx < plop.length; zx++) {
-            var varIdQuiz = plop[zx].id;
+        for (let zx = 0; zx < editlist.length; zx++) {
+            var varIdQuiz = editlist[zx].id;
 
             var newDiv = document.createElement("div");
             newDiv.setAttribute("class", "testbutton");
             var newContent = document.createTextNode("Vérifier");
             newDiv.appendChild(newContent);
             // IIFE => VOIR STACK OVERFLOW //
-             newDiv.onclick= (function(plop, varIdQuiz) {
+             newDiv.onclick= (function(editlist, varIdQuiz) {
                 return function(){
                     window.location.replace("/editQuiz/" + varIdQuiz);
                 }
-             })(plop, varIdQuiz);
+             })(editlist, varIdQuiz);
             //_____________________________________  //
             let here = document.getElementsByClassName('testplopbtn');
             
@@ -74,19 +74,19 @@
        }
 
        // DELETE BUTTON //
-       for (let zx = 0; zx < plop.length; zx++) {
-            var varIdQuiz = plop[zx].id;
+       for (let zx = 0; zx < editlist.length; zx++) {
+            var varIdQuiz = editlist[zx].id;
 
             var newDiv = document.createElement("div");
             newDiv.setAttribute("class", "testbutton");
             var newContent = document.createTextNode("SUPPRIMER");
             newDiv.appendChild(newContent);
             // IIFE => VOIR STACK OVERFLOW //
-             newDiv.onclick= (function(plop, varIdQuiz) {
+             newDiv.onclick= (function(editlist, varIdQuiz) {
                 return function(){
                     window.location.replace("/DELETE/" + varIdQuiz);
                 }
-             })(plop, varIdQuiz);
+             })(editlist, varIdQuiz);
             //_____________________________________  //
             let here = document.getElementsByClassName('testplopbtnDEL');
             
@@ -94,19 +94,19 @@
        }
 
         // VALIDATE BUTTON //
-        for (let zx = 0; zx < plop.length; zx++) {
-            var varIdQuiz = plop[zx].id;
+        for (let zx = 0; zx < editlist.length; zx++) {
+            var varIdQuiz = editlist[zx].id;
 
             var newDiv = document.createElement("div");
             newDiv.setAttribute("class", "testbutton");
             var newContent = document.createTextNode("Validation");
             newDiv.appendChild(newContent);
             // IIFE => VOIR STACK OVERFLOW //
-             newDiv.onclick= (function(plop, varIdQuiz) {
+             newDiv.onclick= (function(editlist, varIdQuiz) {
                 return function(){
                     window.location.replace("/VALIDATE/" + varIdQuiz);
                 }
-             })(plop, varIdQuiz);
+             })(editlist, varIdQuiz);
             //_____________________________________  //
             let here = document.getElementsByClassName('testplopbtnVAL');
             

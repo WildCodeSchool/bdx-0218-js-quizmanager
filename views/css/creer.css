@@ -246,7 +246,7 @@ div.speech:after {
   background-color: blue;
 }
 
-.testplopid, .testplopcat, .testploptitre, .testplopbtn {
+.testplopid, .testplopcat, .testploptitre, .testplopbtn, .testplopbtnDEL, .testplopbtnVAL {
   text-align: center;
 }
 
