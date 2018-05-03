@@ -54,16 +54,10 @@ app.get('/jouer', function(req, res) {
     });
 });
 
-
+//page login
 app.get('/login', function(req, res) {
     res.render('pages/login');
 });
-//page login
-app.get('/login', function(req, res) {
-    res.render('pages/login',{title:'Login'});
-});
-
-
 
 app.post('/checkAdmin',function(req,res) {
     checkAdmin.checkLogin(req.body.username,function(data){
@@ -94,7 +88,7 @@ app.get('/jouer', function (req, res) {
     readQuiz.getListQuiz(function (data) {
         res.render('pages/jouer', { titre: data });
     })
-	});
+});
 
 // page question
 app.get('/questionspage/:id(\\d+)', function (req, res) {
@@ -195,13 +189,6 @@ app.get('/creation', function (req, res) {
     res.render('pages/creer', { varFloat: "floatt" });
 });
 
-app.get('/finquizz', function (req, res) {
-    res.render('pages/FinQuizz', { varFloat: "floatt" });
-});
-
-app.get('/bravo', function (req, res) {
-    res.render('pages/FinQuizz', { varFloat: "floatt" });
-});
 
 //MODIFIER QUIZ//
 app.post('/quizModify', function (req, res) {
@@ -222,6 +209,9 @@ app.post('/quizModify', function (req, res) {
 
 // PAGE LISTE QUIZ//
 app.get('/editList', function (req, res) {
+    if(!req.session.name) {
+        res.redirect('/login');
+    }
     readQuiz.getCheckedQuiz(function (editlist) {
         res.render('pages/editList', {
             editlist: editlist
@@ -232,6 +222,9 @@ app.get('/editList', function (req, res) {
 
 //PAGE DE VERIFICATION//
 app.get('/checkList', function (req, res) {
+    if(!req.session.name) {
+        res.redirect('/login');
+    }
     readQuiz.getUncheckedQuiz(function (data) {
         res.render('pages/checkList', {
             plop: data
@@ -240,6 +233,9 @@ app.get('/checkList', function (req, res) {
 });
 
 app.get('/editQuiz/:id(\\d+)', function (req, res) {
+    if(!req.session.name) {
+        res.redirect('/login');
+    }
     readQuiz.getQuiz(req.params.id, function (data) {
         // console.log(JSON.stringify(data,0,2))
         res.render('pages/editQuiz', { quiz: data });
@@ -247,12 +243,18 @@ app.get('/editQuiz/:id(\\d+)', function (req, res) {
 });
 
 app.get('/DELETE/:id(\\d+)', function (req, res) {
+    if(!req.session.name) {
+        res.redirect('/login');
+    }
     updateDelete.updateDelete(req.params.id, function (data) {
         res.redirect('/admin')
     });
 });
 
 app.get('/VALIDATE/:id(\\d+)', function (req, res) {
+    if(!req.session.name) {
+        res.redirect('/login');
+    }
     updateQuiz.updateValidate(req.params.id, function (data) {
         res.redirect('/CheckList')
     });
