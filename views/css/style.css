@@ -684,6 +684,18 @@ margin-bottom: 60px;
 
 }
 
+.BackBT {
+  padding: 1rem;
+  width: auto;
+  max-width: 10rem;
+  background-color: blue;
+  color: yellow;
+  font-size: 2.1rem;
+  font-weight: bold;
+  border: 0.3rem solid yellow;
+  text-decoration: none;
+  margin-left: 87%; 
+
 
 
 /*FIN PARTIE ADMIN VERIF*/

@@ -237,7 +237,6 @@ app.get('/editQuiz/:id(\\d+)', function (req, res) {
         res.redirect('/login');
     }
     readQuiz.getQuiz(req.params.id, function (data) {
-        // console.log(JSON.stringify(data,0,2))
         res.render('pages/editQuiz', { quiz: data });
     });
 });

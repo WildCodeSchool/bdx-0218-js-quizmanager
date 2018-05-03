@@ -4,6 +4,10 @@
     <% include ../partials/head %>
 </head>
 <body>
+    	<header>
+                <% include ../partials/headerAdmin %>
+        </header>
+
         <section class="titre_faq">
                 <h1>Liste des Quiz</h1>
             </section>
@@ -22,8 +26,7 @@
 
 <script type="text/javascript">
     let editlist = <%- JSON.stringify(editlist,0,2) %>
-    console.log(editlist)
-
+   
     // ID //
     for (let i = 0; i < editlist.length; i++) {
         var newDiv = document.createElement("div");

@@ -95,7 +95,7 @@ updateAns = (answer,great,id,cb) => {
 };
 
 updateAnsGreat = (great,id,cb) => {
-  try {  console.log(id) //ID QUESTION
+  try {  
       const connection = mysql.createConnection(connectionParameters);
       try {
           connection.connect((err) => {
