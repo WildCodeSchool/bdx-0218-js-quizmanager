@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 var router = express.Router();
 app.use(cookieParser());
 
-app.use(express.json())
+app.use(express.json());
 app.use('/views', express.static('views'));
 app.use(session ({
 	store: new fileStore ({
@@ -62,9 +62,6 @@ app.get('/login', function(req, res) {
 });
 //page login
 
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.get('/login', function(req, res) {
     res.render('pages/login',{title:'Login'});
 });
@@ -72,25 +69,6 @@ app.get('/login', function(req, res) {
 app.get('/profile', function(req,res){
   res.render('pages/profile',{username:'marion'});
 })
-
-app.post('/login',
-passport.authenticate('local',{
-  successRedirect:'/profile',
-  failureRedirect:'/login'
-}));
-
-
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    console.log(username);
-    console.log(password);
-    const db = require('./db');
-
-    db.query('SELECT pass FROM admin WHERE login= ?',[username], function(err,results,fields){
-      if (err){
-        throw (err);
-
-
 
 app.post('/checkAdmin',function(req,res) {
     checkAdmin.checkLogin(req.body.username,function(data){
@@ -107,20 +85,23 @@ app.post('/checkAdmin',function(req,res) {
             console.log("votre mot de passe est erroné !");
             res.redirect ('/login')
         }
+			});
+		});
 
 app.get('/admin', function(req,res) {
     if(!req.session.name) {
         res.redirect('/login');
     }
     res.render('pages/admin');
-})
+});
 
 
 app.get('/jouer', function (req, res) {
     readQuiz.getListQuiz(function (data) {
         res.render('pages/jouer', { titre: data });
-    });
-             
+    })
+	});
+
 // page question
 app.get('/questionspage/:id(\\d+)', function (req, res) {
     readQuiz.getQuiz(req.params.id, function (data) {
