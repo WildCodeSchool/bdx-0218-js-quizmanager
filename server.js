@@ -2,35 +2,42 @@
 // load the things we need
 
 var express = require('express');
+var router = express.Router();
 var app = express();
+var session = require('express-session');
+var fileStore = require('session-file-store')(session);
+var path = require('path');
 var nodemailer = require('nodemailer');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var readQuiz = require('./controlers/js/sqlRead');
 var createQuiz = require('./controlers/js/sqlCreate');
-var app = module.exports = express();
-var session = require('express-session');
-var MySQLStore = require('express-mysql-session')(session);
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+var updateQuiz = require('./controlers/js/sqlUpdate');
+var checkAdmin = require('./controlers/js/sqlAdmin');
+var updateDelete = require('./controlers/js/sqlDelete')
 
-
-
-
-// var bcrypt = require('bcrypt');
 var varFloat = "";
 var cookie = require('cookie');
 var mysql = require('mysql');
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
 var router = express.Router();
 app.use(cookieParser());
 
-
-
 app.use(express.json())
 app.use('/views', express.static('views'));
+app.use(session ({
+	store: new fileStore ({
+		path: path.join(__dirname, '/tmp'),
+		encrypt: true
+	}),
+	secret: 'Sp3c1@lW0rd',
+	resave: false,
+	saveUninitialized: true,
+	name: 'sessionId'
+}));
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -50,8 +57,8 @@ app.get('/jouer', function(req, res) {
 });
 
 // about page
-app.get('/admin', function(req, res) {
-    res.render('pages/admin');
+app.get('/login', function(req, res) {
+    res.render('pages/login');
 });
 //page login
 
@@ -83,21 +90,31 @@ passport.use(new LocalStrategy(
       if (err){
         throw (err);
 
-        } else {
-          if (results.length === 0){
-            return done(null,false);
-          } else if (results[0].pass!=password){
-            return done(null,false);
-          }
 
-            return done(null,'dddd');
+app.post('/checkAdmin',function(req,res) {
+    checkAdmin.checkLogin(req.body.username,function(data){
+        if (data === undefined) {
+            console.log("Ce nom d'utilisateur est inconnu !");
+            res.redirect ('/login')
+        }
+        else if (req.body.password === data.password) {
+            console.log("super !");
+            req.session.name = data.username;
+            console.log(req.session.name);
+            res.redirect ('/admin')
+        } else {
+            console.log("votre mot de passe est erroné !");
+            res.redirect ('/login')
+
         }
 
-      })
-      db.query('SELECT login FROM admin as userName', function(error,results,fields){
-              if (error) {
-                throw error;
-              };
+app.get('/admin', function(req,res) {
+    if(!req.session.name) {
+        res.redirect('/login');
+    }
+    res.render('pages/admin');
+})
+
 
               let userName =results[0].username;
       });
@@ -129,6 +146,9 @@ app.get('/faq', function(req, res) {
 });
 
 app.get('/adminFaq', function(req, res) {
+    if(!req.session.name) {
+        res.redirect('/login');
+    }
     readQuiz.getFaq(function (data) {
         res.render('pages/adminFaq', {varFloat:"floatt", faq: data});
     })
@@ -152,6 +172,9 @@ app.get('/accueil', function(req, res) {
 });
 
 app.get('/adminAccueil', function(req, res) {
+    if(!req.session.name) {
+        res.redirect('/login');
+    }
     readQuiz.getAccueil(function (dataText) {
         res.render('pages/adminAccueil', {varFloat:"floatt", text: dataText});
     })
@@ -205,13 +228,50 @@ app.get('/bravo', function(req, res) {
     res.render('pages/FinQuizz', {varFloat:"floatt"});
 });
 
-//MODIFIER QUIZ
+//MODIFIER QUIZ//
+app.post('/quizModify', function(req, res) {
+    updateQuiz.updateQst(req.body.qstTitre, req.body.id, function (data) {  
+    });
+    updateQuiz.updateAns(req.body.qstrep01, req.body.qstid01, function (data) {
+    });
+    updateQuiz.updateAns(req.body.qstrep02, req.body.qstid02, function (data) {  
+    });
+    updateQuiz.updateAns(req.body.qstrep03, req.body.qstid03, function (data) {   
+    });
+    updateQuiz.updateAns(req.body.qstrep04, req.body.qstid04, function (data) {   
+    });
+    res.redirect(req.get('referer'));
+});
+//FIN MODIFIER QUIZ//
 
-app.get('/modifierQuiz/:id(\\d+)',function(req,res){
+//PAGE DE VERIFICATION//
+app.get('/checkList/', function(req,res) {
+    readQuiz.getUncheckedQuiz(function(data){
+        res.render('pages/checkList',{
+          plop : data  
+        })})  
+});
+
+app.get('/editQuiz/:id(\\d+)',function(req,res){
     readQuiz.getQuiz(req.params.id, function(data) {
-     res.render('pages/modifierQuiz', {quiz: data});
+        // console.log(JSON.stringify(data,0,2))
+       res.render('pages/editQuiz', {quiz: data});
     });
 });
+
+app.get('/DELETE/:id(\\d+)',function(req,res){
+    updateDelete.updateDelete(req.params.id, function(data) {
+        res.redirect('/checkList')
+    });
+});
+
+app.get('/VALIDATE/:id(\\d+)',function(req,res){
+    updateQuiz.updateValidate(req.params.id, function(data) {
+        res.redirect('/CheckList')
+    });
+});
+//FIN PAGE DE VERIFICATION//
+
 
 //ENVOI EMAIL//
 app.post('/sendMail', function (req, res) {
