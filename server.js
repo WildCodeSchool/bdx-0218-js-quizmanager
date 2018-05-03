@@ -9,16 +9,30 @@ var fileStore = require('session-file-store')(session);
 var path = require('path');
 var nodemailer = require('nodemailer');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var readQuiz = require('./controlers/js/sqlRead');
 var createQuiz = require('./controlers/js/sqlCreate');
-var updateQuiz = require('./controlers/js/sqlUpdate')
-var checkAdmin = require('./controlers/js/sqlAdmin')
+var app = module.exports = express();
+var session = require('express-session');
+var MySQLStore = require('express-mysql-session')(session);
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
+
+
+
+// var bcrypt = require('bcrypt');
 var varFloat = "";
+var cookie = require('cookie');
+var mysql = require('mysql');
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-app.use(express.json()) 
+var router = express.Router();
+app.use(cookieParser());
+
+app.use(express.json())
 app.use('/views', express.static('views'));
 app.use(session ({
 	store: new fileStore ({
@@ -40,10 +54,48 @@ app.get('/', function(req, res) {
 });
 
 
+//page jouer
+
+app.get('/jouer', function(req, res) {
+    readQuiz.getListQuiz(function (data){
+    res.render('pages/jouer',{titre:data});
+    });
+});
+
 // about page
 app.get('/login', function(req, res) {
     res.render('pages/login');
 });
+//page login
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/login', function(req, res) {
+    res.render('pages/login',{title:'Login'});
+});
+
+app.get('/profile', function(req,res){
+  res.render('pages/profile',{username:'marion'});
+})
+
+app.post('/login',
+passport.authenticate('local',{
+  successRedirect:'/profile',
+  failureRedirect:'/login'
+}));
+
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    console.log(username);
+    console.log(password);
+    const db = require('./db');
+
+    db.query('SELECT pass FROM admin WHERE login= ?',[username], function(err,results,fields){
+      if (err){
+        throw (err);
+
 
 app.post('/checkAdmin',function(req,res) {
     checkAdmin.checkLogin(req.body.username,function(data){
@@ -59,9 +111,8 @@ app.post('/checkAdmin',function(req,res) {
         } else {
             console.log("votre mot de passe est erroné !");
             res.redirect ('/login')
+
         }
-    });
-});
 
 app.get('/admin', function(req,res) {
     if(!req.session.name) {
@@ -70,11 +121,21 @@ app.get('/admin', function(req,res) {
     res.render('pages/admin');
 })
 
-app.get('/jouer', function(req, res) {
-    readQuiz.getListQuiz(function (data){
-    res.render('pages/jouer',{titre:data});
-    });
+
+              let userName =results[0].username;
+      });
+  }
+
+));
+
+passport.serializeUser(function(userName, done) {
+  done(null, userName);
 });
+
+passport.deserializeUser(function(user, done) {
+  done(null, userName);
+});
+
 
 // page question
 app.get('/questionspage/:id(\\d+)',function(req,res){
@@ -146,7 +207,7 @@ app.get('/searchquiz', function(req, res) {
 // play quiz page
 app.get('/:id(\\d+)',(req,res)=> {
     readQuiz.getQuizInfos(req.params.id, function(data) {
-    res.render('pages/jouer',{id: data.id, title:data.title, category:data.category});  
+    res.render('pages/jouer',{id: data.id, title:data.title, category:data.category});
   });
 });
 
