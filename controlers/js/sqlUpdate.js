@@ -14,12 +14,12 @@ updateFaq = (question,reponse,id,cb) => {
                   });
               } catch (err) {
                        throw ('An error occur during the data update: '+err);
-              }        
+              }
           });
       } catch (err) {
         throw ('An error occur during the connection process: '+ err);
       }
-  } catch (err) { 
+  } catch (err) {
       throw ('An error occur during the connection creation process: '+ err);
   }
 };
@@ -37,17 +37,15 @@ updateAccueil = (text1,text2,id,cb) => {
                   });
               } catch (err) {
                        throw ('An error occur during the data update: '+err);
-              }        
+              }
           });
       } catch (err) {
         throw ('An error occur during the connection process: '+ err);
       }
-  } catch (err) { 
+  } catch (err) {
       throw ('An error occur during the connection creation process: '+ err);
   }
 };
-
-
 
 updateQst = (question,id,cb) => {
   try {
@@ -144,6 +142,7 @@ updateValidate = (id,cb) => {
   }
 };
 //FIN VALIDATION QUIZ//
+
 
 let test =
 {
@@ -362,7 +361,7 @@ let test =
       }
     ]
   }
-  
+
 
   
 // TODO
@@ -379,6 +378,8 @@ module.exports = {
   updateAccueil,
   updateQst,
   updateAns,
+
   updateValidate,
   updateAnsGreat
 };
+
