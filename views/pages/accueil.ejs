@@ -13,26 +13,37 @@
 
 	<main class="accueil">
 
-
 <section class="appel">
-
 			<div class="row">
 				<div class="col text_appel">
-					<h3 class="text_appel1"><%= text[0].text1 %></h3>
-					<h2 class="text_appel2"><%= text[0].text2 %></h2>
+					<h3 class="text_appel1">
+						<%= text[0].text1 %>
+					</h3>
+					<h2 class="text_appel2">
+						<%= text[0].text2 %>
+					</h2>
 				</div>
 			</div>
 			<div class="row buttons">
 
-							<a href="/jouer" style="text-decoration:none"><h3 class="bouton_de_gauche" >Jouer une partie</h2></a>
-							<a href="/creationQuiz" style="text-decoration:none" ><h3 class="bouton_de_droite">Créer un quiz</h2></a>
-	  	</div>
-</section>
+				<a href="/jouer" style="text-decoration:none">
+					<h3 class="bouton_de_gauche">Jouer une partie</h2>
+				</a>
+				<a href="/creationQuiz" style="text-decoration:none">
+					<h3 class="bouton_de_droite">Créer un quiz</h2>
+				</a>
+			</div>
+		</section>
+
 		<section class="publics">
 			<div class="row">
 				<div class="col text_appel">
-					<h3 class="text_appel1"><%= text[1].text1 %></h3>
-					<h2 class="text_appel2"><%= text[1].text2 %></h2>
+					<h3 class="text_appel1">
+						<%= text[1].text1 %>
+					</h3>
+					<h2 class="text_appel2">
+						<%= text[1].text2 %>
+					</h2>
 				</div>
 			</div>
 			<div class="row public">
@@ -62,13 +73,13 @@
 			<div class="backgroundcaroussel">
 
 				<div class="content">
-					<div class="row">
-						<div class="col whiteframe">
-							<h1 class="decouvrez">NOS DERNIERS QUIZS</h1>
-
 							<div class="row">
+								<div class="col whiteframe">
+									<h1 class="decouvrez">NOS DERNIERS QUIZS</h1>
 
-									<div class="col smallsquare">
+									<div class="row">
+
+										<div class="col smallsquare">
 											<a href="/questionspage/<%= titre[0].id %>">
 												<div class="col whitesquare">
 													<img src="/views/img/<%= titre[0].category %>.png" alt="category icon" />
@@ -76,77 +87,82 @@
 														<h2>
 															<%=titre[0].title%>
 														</h2>
-															<%=titre[0].category%>
+														<%=titre[0].category%>
 													</div>
 												</div>
 											</a>
 										</div>
 
-								<div class="col smallsquare">
-									<a href="/questionspage/<%= titre[1].id %>">
-										<div class="col whitesquare">
-											<img src="/views/img/<%= titre[1].category %>.png" alt="category icon" />
-											<div class="col redrectangle">
-												<h2>
-													<%=titre[1].title%>
-												</h2>
-													<%=titre[1].category%>
-											</div>
-										</div>
-									</a>
-								</div>
+										<div class="col smallsquare">
+											<a href="/questionspage/<%= titre[1].id %>">
+												<div class="col whitesquare">
+													<img src="/views/img/<%= titre[1].category %>.png" alt="category icon" />
+													<div class="col redrectangle">
+														<h2>
+															<%=titre[1].title%>
+														</h2>
+														<%=titre[1].category%>
+													</div>
+												</div>
+											</a>
 
-								<div class="col smallsquare">
-									<a href="/questionspage/<%= titre[2].id %>">
-										<div class="col whitesquare">
-											<img src="/views/img/<%= titre[2].category %>.png" alt="category icon" />
-											<div class="col redrectangle">
-												<h2>
-													<%=titre[2].title%>
-												</h2>
-													<%=titre[2].category%>
-											</div>
 										</div>
-									</a>
-								</div>
 
-								<div class="col smallsquare">
-									<a href="/questionspage/<%= titre[3].id %>">
-										<div class="col whitesquare">
-											<img src="/views/img/<%= titre[3].category %>.png" alt="category icon" />
-											<div class="col redrectangle">
-												<h2>
-													<%=titre[3].title%>
-												</h2>
-													<%=titre[3].category%>
-											</div>
+										<div class="col smallsquare">
+											<a href="/questionspage/<%= titre[2].id %>">
+												<div class="col whitesquare">
+													<img src="/views/img/<%= titre[2].category %>.png" alt="category icon" />
+													<div class="col redrectangle">
+														<h2>
+															<%=titre[2].title%>
+														</h2>
+														<%=titre[2].category%>
+													</div>
+												</div>
+											</a>
 										</div>
-									</a>
+
+										<div class="col smallsquare">
+											<a href="/questionspage/<%= titre[3].id %>">
+												<div class="col whitesquare">
+													<img src="/views/img/<%= titre[3].category %>.png" alt="category icon" />
+													<div class="col redrectangle">
+														<h2>
+															<%=titre[3].title%>
+														</h2>
+														<%=titre[3].category%>
+													</div>
+												</div>
+											</a>
+										</div>
+									</div>
+
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</section>
-</main>
+	</main>
 
-		<section class="news">
-			<div class="row">
-				<div class="col text_appel">
-					<h3 class="text_appel1"><%= text[2].text1 %></h3>
-					<h2 class="text_appel2"><%= text[2].text2 %></h2>
-				</div>
+	<section class="news">
+		<div class="row">
+			<div class="col text_appel">
+				<h3 class="text_appel1">
+					<%= text[2].text1 %>
+				</h3>
+				<h2 class="text_appel2">
+					<%= text[2].text2 %>
+				</h2>
 			</div>
+		</div>
 
-			<div class="row">
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/ibxP229BGaU" frameborder="0" allow="autoplay; encrypted-media"
-				    allowfullscreen></iframe>
-			</div>
-			<div class="row buttons">
-				<!-- <h3 class="bouton_de_gauche">Découvrez + de vidéos</h2> -->
-			</div>
-		</section>
+		<div class="row">
+			<iframe width="560" height="315" src="https://www.youtube.com/embed/ibxP229BGaU" frameborder="0" allow="autoplay; encrypted-media"
+			    allowfullscreen></iframe>
+		</div>
+		<div class="row buttons">
+			<!-- <h3 class="bouton_de_gauche">Découvrez + de vidéos</h2> -->
+		</div>
+	</section>
 
 	</main>
 
