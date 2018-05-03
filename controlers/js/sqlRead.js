@@ -250,6 +250,38 @@ getUncheckedQuiz = (cb) => {
     }
   }
   
+  getCheckedQuiz = (cb) => {
+    try {
+        let checkedQuiz = [];
+        const connection = mysql.createConnection(connectionParameters);
+        connection.connect((err) => {
+            try {
+            if (err) {
+                throw ('connection with the database failed '+err);
+            } else {
+            }
+            connection.query(
+                `SELECT id, title, category FROM Quiz WHERE checked=1`, (err, rows) => {
+                    if (err) {
+                    throw err;
+                    } else {
+                        for (var i = 0; i < rows.length; i++) {
+                        checkedQuiz.push({id:rows[i].id, title:rows[i].title, category: rows[i].category});
+                        }
+                    }
+                    cb(checkedQuiz);
+                });
+            } catch (err) {
+                throw ('An error occur '+ err);
+            } finally {
+              //   connection.end();
+            }
+        });
+    } catch (err) {
+      throw ('An error occur: '+err);
+    }
+  }
+
 module.exports = {
   getQuizInfos,
   getLastQuiz,
@@ -257,6 +289,7 @@ module.exports = {
   getListQuiz,
   getFaq,
   getAccueil,
+  getCheckedQuiz,
   getUncheckedQuiz
 };
 
