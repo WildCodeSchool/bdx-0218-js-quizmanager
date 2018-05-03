@@ -41,7 +41,7 @@ app.use(session ({
 app.set('view engine', 'ejs');
 
 // index page
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.render('pages/index');
 });
 
@@ -54,15 +54,15 @@ app.get('/jouer', function(req, res) {
     });
 });
 
-// about page
+
 app.get('/login', function(req, res) {
     res.render('pages/login');
 });
 //page login
+app.get('/login', function(req, res) {
+    res.render('pages/login',{title:'Login'});
+});
 
-app.get('/profile', function(req,res){
-  res.render('pages/profile',{username:'marion'});
-})
 
 
 app.post('/checkAdmin',function(req,res) {
@@ -78,7 +78,6 @@ app.post('/checkAdmin',function(req,res) {
         } else {
             console.log("votre mot de passe est erroné !");
             res.redirect ('/login')
-
         }
     });
 });
@@ -88,15 +87,19 @@ app.get('/admin', function(req,res) {
         res.redirect('/login');
     }
     res.render('pages/admin');
-})
+});
 
 
-
+app.get('/jouer', function (req, res) {
+    readQuiz.getListQuiz(function (data) {
+        res.render('pages/jouer', { titre: data });
+    })
+	});
 
 // page question
-app.get('/questionspage/:id(\\d+)',function(req,res){
-    readQuiz.getQuiz(req.params.id, function(data) {
-	   res.render('pages/questionspage', {quiz: data});
+app.get('/questionspage/:id(\\d+)', function (req, res) {
+    readQuiz.getQuiz(req.params.id, function (data) {
+        res.render('pages/questionspage', { quiz: data });
     });
 });
 
@@ -110,9 +113,9 @@ app.post('/questionspage',function(req,res){
 });
 
 // FAQ page
-app.get('/faq', function(req, res) {
+app.get('/faq', function (req, res) {
     readQuiz.getFaq(function (data) {
-        res.render('pages/faq', {varFloat:"floatt", faq: data});
+        res.render('pages/faq', { varFloat: "floatt", faq: data });
     });
 });
 
@@ -121,23 +124,23 @@ app.get('/adminFaq', function(req, res) {
         res.redirect('/login');
     }
     readQuiz.getFaq(function (data) {
-        res.render('pages/adminFaq', {varFloat:"floatt", faq: data});
+        res.render('pages/adminFaq', { varFloat: "floatt", faq: data });
     })
 });
 
-app.post('/faqModify', function(req, res) {
+app.post('/faqModify', function (req, res) {
     updateQuiz.updateFaq(req.body.question, req.body.reponse, req.body.id, (answer) => {
         readQuiz.getFaq(function (data) {
-        res.render('pages/adminFaq', {varFloat:"floatt", update: answer, faq: data});
+            res.render('pages/adminFaq', { varFloat: "floatt", update: answer, faq: data });
         });
     });
 });
 
 // acceuil page
-app.get('/accueil', function(req, res) {
-    readQuiz.getLastQuiz(function (dataQuiz){
-        readQuiz.getAccueil(function (dataText){
-        res.render('pages/accueil', {titre:dataQuiz, text: dataText});
+app.get('/accueil', function (req, res) {
+    readQuiz.getLastQuiz(function (dataQuiz) {
+        readQuiz.getAccueil(function (dataText) {
+            res.render('pages/accueil', { titre: dataQuiz, text: dataText });
         })
     })
 });
@@ -147,29 +150,30 @@ app.get('/adminAccueil', function(req, res) {
         res.redirect('/login');
     }
     readQuiz.getAccueil(function (dataText) {
-        res.render('pages/adminAccueil', {varFloat:"floatt", text: dataText});
+        res.render('pages/adminAccueil', { varFloat: "floatt", text: dataText });
     })
 });
 
-app.post('/accueilModify', function(req, res) {
+app.post('/accueilModify', function (req, res) {
     updateQuiz.updateAccueil(req.body.text1, req.body.text2, req.body.id, (answer) => {
         readQuiz.getAccueil(function (dataText) {
-            res.render('pages/adminAccueil', {varFloat:"floatt", update: answer, text: dataText});
+            res.render('pages/adminAccueil', { varFloat: "floatt", update: answer, text: dataText });
         });
     });
 });
 
 // formulaire de contact
-app.get('/contact', function(req, res) {
+app.get('/contact', function (req, res) {
     res.render('pages/contact');
 });
 
 // search quiz page
-app.get('/searchquiz', function(req, res) {
+app.get('/searchquiz', function (req, res) {
     res.render('pages/searchquiz');
 });
 
 // play quiz page
+
 app.get('/:id(\\d+)',(req,res)=> {
     readQuiz.getQuizInfos(req.params.id, function(data) {
     res.render('pages/jouer',{id: data.id, title:data.title, category:data.category});
@@ -177,67 +181,79 @@ app.get('/:id(\\d+)',(req,res)=> {
 });
 
 // create quiz page
-app.get('/creationQuiz', function(req, res) {
-    res.render('pages/creationQuiz', {varFloat:"floatt"});
+app.get('/creationQuiz', function (req, res) {
+    res.render('pages/creationQuiz', { varFloat: "floatt" });
 });
 
-app.post('/creationQuiz', function(req,res) {
-    createQuiz.setQuiz(req.body, function(answer){
-        res.send({answer: answer});
+app.post('/creationQuiz', function (req, res) {
+    createQuiz.setQuiz(req.body, function (answer) {
+        res.send({ answer: answer });
     });
 });
 
-app.get('/creation', function(req, res) {
-    res.render('pages/creer', {varFloat:"floatt"});
+app.get('/creation', function (req, res) {
+    res.render('pages/creer', { varFloat: "floatt" });
 });
 
-app.get('/finquizz', function(req, res) {
-    res.render('pages/FinQuizz', {varFloat:"floatt"});
+app.get('/finquizz', function (req, res) {
+    res.render('pages/FinQuizz', { varFloat: "floatt" });
 });
 
-app.get('/bravo', function(req, res) {
-    res.render('pages/FinQuizz', {varFloat:"floatt"});
+app.get('/bravo', function (req, res) {
+    res.render('pages/FinQuizz', { varFloat: "floatt" });
 });
 
 //MODIFIER QUIZ//
-app.post('/quizModify', function(req, res) {
-    updateQuiz.updateQst(req.body.qstTitre, req.body.id, function (data) {  
+app.post('/quizModify', function (req, res) {
+
+    updateQuiz.updateQst(req.body.qstTitre, req.body.id, function (data) {
     });
-    updateQuiz.updateAns(req.body.qstrep01, req.body.qstid01, function (data) {
+    updateQuiz.updateAns(req.body.qstrep01, (req.body.great==req.body.qstid01)?1:0 , req.body.qstid01, function (data) {
     });
-    updateQuiz.updateAns(req.body.qstrep02, req.body.qstid02, function (data) {  
+    updateQuiz.updateAns(req.body.qstrep02, (req.body.great==req.body.qstid02)?1:0, req.body.qstid02, function (data) {
     });
-    updateQuiz.updateAns(req.body.qstrep03, req.body.qstid03, function (data) {   
+    updateQuiz.updateAns(req.body.qstrep03,  (req.body.great==req.body.qstid03)?1:0, req.body.qstid03, function (data) {
     });
-    updateQuiz.updateAns(req.body.qstrep04, req.body.qstid04, function (data) {   
+    updateQuiz.updateAns(req.body.qstrep04,  (req.body.great==req.body.qstid04)?1:0, req.body.qstid04, function (data) {
     });
     res.redirect(req.get('referer'));
 });
 //FIN MODIFIER QUIZ//
 
+// PAGE LISTE QUIZ//
+app.get('/editList', function (req, res) {
+    readQuiz.getCheckedQuiz(function (editlist) {
+        res.render('pages/editList', {
+            editlist: editlist
+        })
+    })
+});
+//FIN PAGE LISTE QUIZ//
+
 //PAGE DE VERIFICATION//
-app.get('/checkList/', function(req,res) {
-    readQuiz.getUncheckedQuiz(function(data){
-        res.render('pages/checkList',{
-          plop : data  
-        })})  
+app.get('/checkList', function (req, res) {
+    readQuiz.getUncheckedQuiz(function (data) {
+        res.render('pages/checkList', {
+            plop: data
+        })
+    })
 });
 
-app.get('/editQuiz/:id(\\d+)',function(req,res){
-    readQuiz.getQuiz(req.params.id, function(data) {
+app.get('/editQuiz/:id(\\d+)', function (req, res) {
+    readQuiz.getQuiz(req.params.id, function (data) {
         // console.log(JSON.stringify(data,0,2))
-       res.render('pages/editQuiz', {quiz: data});
+        res.render('pages/editQuiz', { quiz: data });
     });
 });
 
-app.get('/DELETE/:id(\\d+)',function(req,res){
-    updateDelete.updateDelete(req.params.id, function(data) {
-        res.redirect('/checkList')
+app.get('/DELETE/:id(\\d+)', function (req, res) {
+    updateDelete.updateDelete(req.params.id, function (data) {
+        res.redirect('/admin')
     });
 });
 
-app.get('/VALIDATE/:id(\\d+)',function(req,res){
-    updateQuiz.updateValidate(req.params.id, function(data) {
+app.get('/VALIDATE/:id(\\d+)', function (req, res) {
+    updateQuiz.updateValidate(req.params.id, function (data) {
         res.redirect('/CheckList')
     });
 });
@@ -246,28 +262,28 @@ app.get('/VALIDATE/:id(\\d+)',function(req,res){
 
 //ENVOI EMAIL//
 app.post('/sendMail', function (req, res) {
-  let smtpTransport = nodemailer.createTransport({
-  service: "Gmail",
-  auth: {
-  user: "wildtrashmailing@gmail.com",
-  pass: "Ploppyplop01"
-  }
-  });
+    let smtpTransport = nodemailer.createTransport({
+        service: "Gmail",
+        auth: {
+            user: "wildtrashmailing@gmail.com",
+            pass: "Ploppyplop01"
+        }
+    });
 
-  smtpTransport.sendMail({
-  from: req.body.email,
-  to: "wildtrashmailing@gmail.com",
-  subject: 'Vous avez reçu un message de ' + req.body.last_name + ' ' + req.body.first_name,
-  text: req.body.message,
-  html: '<b>' + req.body.message + '</b>'
-  }, (error, response) => {
-  if(error){
-  console.log(error);
-  }else{
-  console.log("Message sent");
-  }
-  });
-  res.redirect('/contact')
+    smtpTransport.sendMail({
+        from: req.body.email,
+        to: "wildtrashmailing@gmail.com",
+        subject: 'Vous avez reçu un message de ' + req.body.last_name + ' ' + req.body.first_name,
+        text: req.body.message,
+        html: '<b>' + req.body.message + '</b>'
+    }, (error, response) => {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log("Message sent");
+        }
+    });
+    res.redirect('/contact')
 });
 // FIN ENVOI EMAIL//
 

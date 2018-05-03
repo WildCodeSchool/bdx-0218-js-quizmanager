@@ -71,17 +71,16 @@ updateQst = (question,id,cb) => {
   }
 };
 
-updateAns = (answer,id,cb) => {
+updateAns = (answer,great,id,cb) => {
   try {  
       const connection = mysql.createConnection(connectionParameters);
       try {
           connection.connect((err) => {
               try {
                   connection.query(
-                    'UPDATE answers SET answer = ? WHERE id = ?',[answer, id], (err, results) => {
+                    'UPDATE answers SET answer = ?, great=? WHERE id = ?',[answer, great,id], (err, results) => {
                               if (err) {throw err;}
-                              else {cb('okay update done')}
-                          
+                              else {cb('okay update done')}      
                   });
               } catch (err) {
                        throw ('An error occur during the data update: '+err);
@@ -94,6 +93,30 @@ updateAns = (answer,id,cb) => {
       throw ('An error occur during the connection creation process: '+ err);
   }
 };
+
+updateAnsGreat = (great,id,cb) => {
+  try {  console.log(id) //ID QUESTION
+      const connection = mysql.createConnection(connectionParameters);
+      try {
+          connection.connect((err) => {
+              try {
+                  connection.query(
+                    'UPDATE answers SET great = 0 WHERE id = ?',[great, id], (err, results) => {
+                              if (err) {throw err;}
+                              else {cb('okay update done')}      
+                  });
+              } catch (err) {
+                       throw ('An error occur during the data update: '+err);
+              }        
+          });
+      } catch (err) {
+        throw ('An error occur during the connection process: '+ err);
+      }
+  } catch (err) { 
+      throw ('An error occur during the connection creation process: '+ err);
+  }
+};
+
 
 //VALIDATION QUIZ//
 updateValidate = (id,cb) => {
@@ -355,6 +378,8 @@ module.exports = {
   updateAccueil,
   updateQst,
   updateAns,
-  updateValidate
 
+  updateValidate,
+  updateAnsGreat
 };
+
