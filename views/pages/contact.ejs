@@ -11,20 +11,20 @@
 
 <section class="contact" id="#contact">
 
-        <form action="formulaire.php">   
+        <form method="POST" action="/sendMail">
         	<h2 class="titre">CONTACT</h2>
-            
-            <input type="text" name="firstname" placeholder="Your name">
-           
-            <input type="text" name="lastname" placeholder="Your last name">
-            
-            <input type="email" name="lastname" placeholder="email@pop.com">             
-           
-            <textarea class="message" name="message" placeholder="To book you, please sent us a message or call us : 05 56 21 00 60"></textarea>
+
+            <input type="text" name="first_name" placeholder="Your name">
+
+            <input type="text" name="last_name" placeholder="Your last name">
+
+            <input type="email" name="email" placeholder="email@pop.com">
+
+            <textarea class="message" name="message" placeholder="Please send us a message or call us : 05 56 21 00 60"></textarea>
         <input class="bouton" type="submit" value="ENVOYER">
-   
+
         </form>
-  
+
 </section>
 </body>
 

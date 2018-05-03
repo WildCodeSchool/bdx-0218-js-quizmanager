@@ -1,4 +1,6 @@
-
+.partie_creer2 input {
+  width: 90%;
+}
 
 .titreCreer {
   	margin: 1rem auto;
@@ -89,17 +91,26 @@
 	border: 0.3rem solid red;
 }
 
-.textOui {
+#textOui {
   color : yellow;
   font-weight: bold;
   text-decoration: none;
 
 }
 
-.textOui:hover{
+#textOui:hover{
   color: red;
 }
 
+/* Préparation des éléments à afficher, masquer en Js */
+
+#quizAnswers, .move {
+  display: none;
+}
+
+
+
+/* Fin des éléments pour le Js
 
 /* PARTIE GAUCHE QUIZZY*/
 
@@ -181,6 +192,75 @@ div.speech:after {
 	background-color: white;
 	border: 0.3rem solid red;
 }
+
+/*PARTIE ADMIN VERIF*/
+.quizId {
+  color: yellow;
+  text-align: center;
+  margin: 1.5rem auto;
+  padding: 1rem;
+  width: 7rem;
+  background-color: blue;
+  font-size:1.1rem;
+  font-weight: bold;
+  border: 0.3rem solid yellow;
+}
+
+.quizCat {
+  color: yellow;
+  text-align: center;
+  margin: 1.5rem auto;
+  padding: 1rem;
+  width: 7rem;
+  background-color: blue;
+  font-size:1.1rem;
+  font-weight: bold;
+  border: 0.3rem solid yellow;
+}
+
+.quizTitre {
+  color: yellow;
+  text-align: center;
+  margin: 1.5rem auto;
+  padding: 1rem;
+  width: 25rem;
+  background-color: blue;
+  font-size:1.1rem;
+  font-weight: bold;
+  border: 0.3rem solid yellow;
+}
+
+.testbutton {
+  color: yellow;
+  text-align: center;
+  margin: 1.5rem auto;
+  margin-left: 35px;
+  padding: 1rem;
+  background-color: red;
+  font-size:1.1rem;
+  font-weight: bold;
+  border: 0.3rem solid yellow;
+}
+
+.testbutton:hover {
+  background-color: blue;
+}
+
+.testplopid, .testplopcat, .testploptitre, .testplopbtn, .testplopbtnDEL, .testplopbtnVAL {
+  text-align: center;
+}
+
+.modQstform {
+  background-color: red;
+}
+
+.testplopbtnDEL {
+  text-align: center;
+}
+
+/*FIN PARTIE ADMIN VERIF*/
+
+
 
 
 @keyframes float {
